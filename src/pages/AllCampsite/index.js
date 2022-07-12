@@ -1,9 +1,19 @@
 import React from "react";
+import Header from "../../components/Header";
+import {SearchInputWrapper, SearchWrapper} from "./style";
+import MapContainer from "../../components/MapContainer";
 
 const AllCampsite = () => {
+
   return (
       <div>
-        전체 캠핑장 페이지
+        <Header/>
+        <SearchWrapper>
+          <MapContainer />
+          <SearchInputWrapper>
+
+          </SearchInputWrapper>
+        </SearchWrapper>
       </div>
   )
 }
