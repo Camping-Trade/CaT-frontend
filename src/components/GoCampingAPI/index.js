@@ -1,12 +1,12 @@
 import React, {useEffect} from "react";
 import axios from "axios";
 
-export const SpotBasedSearch = ({x, y}) => {
+export const SpotBasedSearch = (x,y) => {
 
   const API_KEY = process.env.REACT_APP_OPEN_API_KEY;
   const url = "http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/locationBasedList";
 
-  useEffect(() => {
+
     axios
         .get(url, {
           params: {
@@ -22,9 +22,10 @@ export const SpotBasedSearch = ({x, y}) => {
         })
         .then((res) => {
           console.log("👍고캠핑 api 연결 성공\n", res);
+          console.log(x,y);
         })
         .catch((err) => {
           console.log("🧨고캠핑 api 연결 실패\n", err);
         })
-  },[]);
+
 };
