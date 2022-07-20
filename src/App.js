@@ -1,13 +1,13 @@
 import React from 'react';
 import {Routes, Route} from "react-router-dom";
 import Main from "./pages/Main";
-import KakaoLogin from "./pages/Login/KakaoLogin";
+import AllCampsite from "./pages/AllCampsite";
 
 function App() {
   return (
       <Routes>
         <Route exact path="/" element={<Main />}/>
-        <Route path="/login" element={<KakaoLogin />}/>
+        <Route path="/campsites" element={<AllCampsite />}/>
       </Routes>
   )
 }
