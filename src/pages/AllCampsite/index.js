@@ -3,6 +3,7 @@ import Header from "../../components/Header";
 import {SpotBasedSearch} from "../../components/GoCampingAPI/index";
 import {MapWrapper, ResultWrapper, SearchInputWrapper, Wrapper} from "./style";
 import {KakaoMapAPI, KakaoSpotBasedSearch} from "../../components/Map";
+import AreacodeAPI from "../../components/AreacodeAPI";
 
 
 const AllCampsite = () => {
@@ -13,27 +14,24 @@ const AllCampsite = () => {
   // 카카오맵 불러오기
   useEffect(() => {
     KakaoMapAPI();
+    AreacodeAPI();
   },[]);
 
 
 
   async function callSpotBasedSearch() {
-    const loc = await KakaoSpotBasedSearch();
-    console.log("tmpX, tmpY: ", loc);
-    return loc;
+    return await KakaoSpotBasedSearch();
   }
 
   // SpotBasedSearch({mapX, mapY});
   callSpotBasedSearch()
       .then((res) => {
-        console.log("promise res: ", res[0], res[1]);
         setMapX(res[0]);
         setMapY(res[1]);
       })
       .catch((err) => {
         console.log(err);
       })
-  console.log("onclick: ", mapX, mapY);
 
   const onClickSearch = useCallback(() => {
     SpotBasedSearch(mapX, mapY);
@@ -46,6 +44,9 @@ const AllCampsite = () => {
         <Wrapper>
           <MapWrapper id="kakao-map"/>
           <SearchInputWrapper>
+            <select>
+
+            </select>
             <input />
             <input />
             <input />
