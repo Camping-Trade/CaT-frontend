@@ -1,16 +1,20 @@
 import React, {useCallback, useEffect, useState} from "react";
+import useInput from "../../hooks/useInput";
+// Components
 import Header from "../../components/Header";
 import {SpotBasedSearch} from "../../components/GoCampingAPI/index";
-import {MapWrapper, ResultWrapper, SearchInputWrapper, Wrapper} from "./style";
 import {KakaoMapAPI, KakaoSpotBasedSearch} from "../../components/Map";
 import AreacodeAPI from "../../components/AreacodeAPI";
+import OneCampsiteOnList from "../../components/OneCampsiteOnList";
+// Style
+import {BottomWrapper, MapWrapper, ResultWrapper, SearchInputWrapper, TopWrapper, Wrapper} from "./style";
 
 
 const AllCampsite = () => {
 
   // 검색 좌표
-  const [mapX, setMapX] = useState(33.4506810661721);
-  const [mapY, setMapY] = useState(126.57049341667);
+  const [mapX, setMapX] = useState(128.6142847);
+  const [mapY, setMapY] = useState(36.0345423);
   // 지역코드
   const [areaCode, setAreaCode] = useState(null);
   const [selectedLocal1, setSelectedLocal1] = useState("");
@@ -22,6 +26,8 @@ const AllCampsite = () => {
   const [area1Items, setArea1Items] = useState([]);
   // 지역코드2로 조회한 지역 결과 리스트
   const [area2Items, setArea2Items] = useState([]);
+  // 고캠핑 검색 결과
+  const [campsiteList, setCampsiteList] = useState([]);
 
   // 카카오맵 불러오기
   useEffect(() => {
@@ -86,35 +92,47 @@ const AllCampsite = () => {
     setSelectedLocalText2(text);
   };
 
-  const onClickSearch = useCallback(() => {
-    SpotBasedSearch(mapX, mapY);
-  },[mapX, mapY])
+  const onClickSearch = async () => {
+    const data = await SpotBasedSearch(mapX, mapY);
+    console.log("고캠핑 검색 결과: ", data);
+    setCampsiteList(data);
+  };
+
+
+  // 고캠핑 검색 결과 리스트 나타내기
+  const CampsiteList = campsiteList.map((campsite) => {
+    return <OneCampsiteOnList campsite={campsite}/>
+  });
 
 
   return (
       <div>
         <Header/>
         <Wrapper>
-          <MapWrapper id="kakao-map"/>
-          <SearchInputWrapper>
-            <select onChange={SelectLocal1} value={selectedLocal1}>
-              <option value="">--지역1--</option>
-              {area1Items.map((item) => {
-                return <option key={item.rnum} value={item.code}>{item.name}</option>
-              })}
-            </select>
-            <select onChange={SelectLocal2} value={selectedLocal2}>
-              <option value="">--지역2--</option>
-              {area2Items.map((item) => {
-                return <option key={item.rnum} value={item.code}>{item.name}</option>
-              })}
-            </select>
-            <input />
-            <button onClick={onClickSearch}>입력</button>
-          </SearchInputWrapper>
-          <ResultWrapper>
-            결과
-          </ResultWrapper>
+          <TopWrapper>
+            <MapWrapper id="kakao-map"/>
+            <SearchInputWrapper>
+              <select onChange={SelectLocal1} value={selectedLocal1}>
+                <option value="">--지역1--</option>
+                {area1Items.map((item) => {
+                  return <option key={item.rnum} value={item.code}>{item.name}</option>
+                })}
+              </select>
+              <select onChange={SelectLocal2} value={selectedLocal2}>
+                <option value="">--지역2--</option>
+                {area2Items.map((item) => {
+                  return <option key={item.rnum} value={item.code}>{item.name}</option>
+                })}
+              </select>
+              <input />
+              <button onClick={onClickSearch}>입력</button>
+            </SearchInputWrapper>
+          </TopWrapper>
+          <BottomWrapper>
+            <ResultWrapper>
+              {CampsiteList}
+            </ResultWrapper>
+          </BottomWrapper>
         </Wrapper>
       </div>
   )

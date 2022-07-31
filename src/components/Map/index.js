@@ -1,20 +1,22 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 const {kakao} = window;
 let map;
 
+// 카카오맵 불러오기
 export const KakaoMapAPI = () => {
   console.log("👍카카오맵 api 연결");
 
   const container = document.getElementById('kakao-map');
   const options = {
     center: new kakao.maps.LatLng(33.450701, 126.570667),
-    level: 3
+    level: 5
   };
   map = new kakao.maps.Map(container, options);
 };
 
 
+// 카카오 주소 검색 -> 좌표 추출
 export const KakaoSpotBasedSearch = async (spotText) => {
 
   console.log("👍카카오 주소 검색 연결: ", spotText);

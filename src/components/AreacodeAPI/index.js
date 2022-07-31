@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import axios from "axios";
 
 const AreacodeAPI = async (areacode) => {
@@ -28,7 +28,7 @@ const AreacodeAPI = async (areacode) => {
         console.log("🧨지역코드 조회 api 호출 실패", err);
       })
 
-  console.log(areaItems);
+  // console.log(areaItems);
 
   return areaItems;
 }
