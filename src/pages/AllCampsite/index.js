@@ -27,7 +27,12 @@ const AllCampsite = () => {
   // 지역코드2로 조회한 지역 결과 리스트
   const [area2Items, setArea2Items] = useState([]);
   // 고캠핑 검색 결과
-  const [campsiteList, setCampsiteList] = useState([]);
+  const [campsiteList, setCampsiteList] = useState([
+    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+  ]);
 
   // 카카오맵 불러오기
   useEffect(() => {
