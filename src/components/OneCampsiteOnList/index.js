@@ -1,4 +1,6 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
+// Style
 import {Address, Content, ContentWrapper, Induty, Intro, MainImg, Name, ReservBtn, Wrapper} from "./style";
 // Assets
 import Logo from "../../assets/CaT.png";
@@ -7,6 +9,8 @@ const OneCampsiteOnList = ({campsite}) => {
 
   const address = campsite.addr1 + " " + campsite.addr2;
 
+  const navigate = useNavigate();
+
   return (
       <Wrapper>
         {(campsite.firstImageUrl)
@@ -14,7 +18,7 @@ const OneCampsiteOnList = ({campsite}) => {
             : <MainImg src={Logo} alt="디폴트 이미지" />
         }
         <ContentWrapper>
-          <Content>
+          <Content onClick={() => navigate(`/campsites/${campsite.contentId}`)}>
             <Name>{campsite.facltNm}</Name>
             <Intro>{campsite.lineIntro}</Intro>
             <Address>{address}</Address>

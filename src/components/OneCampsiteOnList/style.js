@@ -21,6 +21,7 @@ export const ContentWrapper = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `
 
 export const Name = styled.p`

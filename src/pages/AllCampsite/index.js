@@ -28,10 +28,10 @@ const AllCampsite = () => {
   const [area2Items, setArea2Items] = useState([]);
   // 고캠핑 검색 결과
   const [campsiteList, setCampsiteList] = useState([
-    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
-    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
-    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
-    {firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+    {contentId: 1, firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+    {contentId: 2, firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+    {contentId: 3, firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
+    {contentId: 4, firstImageUrl: null, facltNm: "캠핑장1", induty: "일반야영장", lineIntro: "한줄소개", addr1: "경기도", addr2: "xx시 xx구"},
   ]);
 
   // 카카오맵 불러오기
