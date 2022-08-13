@@ -17,6 +17,9 @@ export const KakaoMapAPI = () => {
 
 
 // 카카오 주소 검색 -> 좌표 추출
+
+
+/*
 export const KakaoSpotBasedSearch = async (spotText) => {
 
   console.log("👍카카오 주소 검색 연결: ", spotText);
@@ -56,4 +59,4 @@ export const KakaoSpotBasedSearch = async (spotText) => {
   });
 
   return [mapY, mapX];
-}
+}*/

@@ -5,7 +5,15 @@ import {Address, Content, ContentWrapper, Induty, Intro, MainImg, Name, ReservBt
 // Assets
 import Logo from "../../assets/CaT.png";
 
-const OneCampsiteOnList = ({campsite}) => {
+const OneCampsiteOnList = ({data}) => {
+
+  let campsite = {};
+  data.map((info) => {
+    const Key = info.name;
+    const Value = info.value;
+    campsite[Key] = Value;
+  })
+  console.log(campsite);
 
   const address = campsite.addr1 + " " + campsite.addr2;
 
