@@ -4,13 +4,14 @@ import StyledBtn from "../../styles/StyledBtn";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 50px 100px;
+  margin: 100px 100px 0;
   align-items: center;
 `
 
 export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 50px;
 `
 
 export const MapWrapper = styled.div`
