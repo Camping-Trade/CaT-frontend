@@ -13,7 +13,7 @@ const OneCampsiteOnList = ({data}) => {
     const Value = info.value;
     campsite[Key] = Value;
   })
-  console.log(campsite);
+  // console.log(campsite);
 
   const address = campsite.addr1 + " " + campsite.addr2;
 
@@ -22,15 +22,19 @@ const OneCampsiteOnList = ({data}) => {
   return (
       <Wrapper>
         {(campsite.firstImageUrl)
-            ? <MainImg src={campsite.firstImageUrl} alt="대표이미지"/>
+            ? <MainImg src={campsite.firstImageUrl} alt="대표이미지" onClick={() => navigate(`/campsites/${campsite.contentId}`)}/>
             : <MainImg src={Logo} alt="디폴트 이미지" />
         }
         <ContentWrapper>
           <Content onClick={() => navigate(`/campsites/${campsite.contentId}`)}>
-            <Name>{campsite.facltNm}</Name>
-            <Intro>{campsite.lineIntro}</Intro>
-            <Address>{address}</Address>
-            <Induty>야영장구분 | {campsite.induty}</Induty>
+            <div>
+              <Name>{campsite.facltNm}</Name>
+              <Intro>{campsite.lineIntro}</Intro>
+            </div>
+            <div>
+              <Address>{address}</Address>
+              <Induty>야영장구분 | {campsite.induty}</Induty>
+            </div>
           </Content>
           <ReservBtn>
             예약하기
