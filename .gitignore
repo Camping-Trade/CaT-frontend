@@ -2,6 +2,7 @@
 
 .env
 /preURL
+/.idea
 
 # dependencies
 /node_modules
