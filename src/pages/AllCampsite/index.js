@@ -6,6 +6,7 @@ import {SpotBasedSearch} from "../../components/GoCampingAPI/index";
 import {KakaoMapAPI, KakaoSpotBasedSearch} from "../../components/Map";
 import AreacodeAPI from "../../components/AreacodeAPI";
 import OneCampsiteOnList from "../../components/OneCampsiteOnList";
+import Footer from "../../components/Footer";
 // Style
 import {
   BottomWrapper,
@@ -184,6 +185,7 @@ const AllCampsite = () => {
             </ResultWrapper>
           </BottomWrapper>
         </Wrapper>
+        <Footer />
       </div>
   )
 }
