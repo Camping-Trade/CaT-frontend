@@ -16,7 +16,7 @@ export const SpotBasedSearch = async (x, y) => {
       .get(url, {
         params: {
           ServiceKey: API_KEY,
-          pageNo: 2,
+          pageNo: 1,
           numOfRows: 15,
           MobileOS: "WIN",
           MobileApp: "CaT",

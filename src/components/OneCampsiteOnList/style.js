@@ -1,9 +1,14 @@
 import styled from "styled-components";
+import StyledBtn from "../../styles/StyledBtn";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+
   margin: 20px;
+  padding: 10px 10px 10px 0;
+  border: 3px solid #709443;
+  border-radius: 10px;
 `
 
 export const MainImg = styled.img`
@@ -21,12 +26,20 @@ export const ContentWrapper = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  
+  margin: 10px;
+  
   cursor: pointer;
 `
 
-export const Name = styled.p`
+export const Name = styled.span`
+  display: block;
+  
   font-weight: bold;
   font-size: large;
+  
+  margin: 0 0 10px;
 `
 
 export const Intro = styled.span`
@@ -34,13 +47,14 @@ export const Intro = styled.span`
 `
 
 export const Address = styled.span`
-      
+  display: block;
 `
 
 export const Induty = styled.span`
   font-size: small;
 `
 
-export const ReservBtn = styled.button`
-
+export const ReservBtn = styled(StyledBtn)`
+  font-size: large;
+  font-weight: bold;
 `

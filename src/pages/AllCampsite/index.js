@@ -7,7 +7,16 @@ import {KakaoMapAPI, KakaoSpotBasedSearch} from "../../components/Map";
 import AreacodeAPI from "../../components/AreacodeAPI";
 import OneCampsiteOnList from "../../components/OneCampsiteOnList";
 // Style
-import {BottomWrapper, MapWrapper, ResultWrapper, SearchInputWrapper, TopWrapper, Wrapper} from "./style";
+import {
+  BottomWrapper,
+  DefaultInform,
+  MapWrapper,
+  ResultWrapper, SearchBtn,
+  SearchInputWrapper, Select,
+  TopWrapper,
+  Wrapper
+} from "./style";
+import { FaSistrix } from 'react-icons/fa';
 
 
 const AllCampsite = () => {
@@ -143,31 +152,35 @@ const AllCampsite = () => {
           <TopWrapper>
             {/*<MapWrapper id="kakao-map"/>*/}
             <SearchInputWrapper>
-              <select onChange={SelectLocal1} value={selectedLocal1}>
-                <option value="">--지역1--</option>
+              <Select onChange={SelectLocal1} value={selectedLocal1}>
+                <option value="" disabled defaultValue>-- 지역1 --</option>
                 {area1Items.map((item) => {
                   const rnum = item.children[0].value;
                   const code = item.children[1].value;
                   const name = item.children[2].value;
                   return <option key={rnum} value={code}>{name}</option>
                 })}
-              </select>
-              <select onChange={SelectLocal2} value={selectedLocal2}>
-                <option value="">--지역2--</option>
+              </Select>
+              <Select onChange={SelectLocal2} value={selectedLocal2}>
+                <option value="" disabled defaultValue>-- 지역2 --</option>
                 {area2Items.map((item) => {
                   const rnum = item.children[0].value;
                   const code = item.children[1].value;
                   const name = item.children[2].value;
                   return <option key={rnum} value={code}>{name}</option>
                 })}
-              </select>
-              <input />
-              <button onClick={onClickSearch}>입력</button>
+              </Select>
+              {/*<input />*/}
+              <SearchBtn onClick={onClickSearch}>
+                <FaSistrix />
+              </SearchBtn>
             </SearchInputWrapper>
           </TopWrapper>
           <BottomWrapper>
             <ResultWrapper>
-              {CampsiteList}
+              {campsiteList.length === 0
+                  ? (<DefaultInform>🏕 캠핑장을 검색하세요! 🏕</DefaultInform>)
+                  : CampsiteList}
             </ResultWrapper>
           </BottomWrapper>
         </Wrapper>
