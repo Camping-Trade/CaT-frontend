@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import StyledBtn from "../../styles/StyledBtn";
+import Color from "../../styles/Color";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -36,7 +37,7 @@ export const Select = styled.select`
   cursor: pointer;
   :focus {
     outline: none;
-    border-color: #119518;
+    border-color: ${Color.pointcolor};
   }
   & option {
     position: absolute;
