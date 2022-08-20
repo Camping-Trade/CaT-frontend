@@ -2,13 +2,6 @@ import styled from "styled-components";
 import StyledBtn from "../../styles/StyledBtn";
 import Color from "../../styles/Color";
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 100px 100px 0;
-  align-items: center;
-`
-
 export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;

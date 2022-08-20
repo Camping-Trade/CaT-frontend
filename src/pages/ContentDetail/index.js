@@ -1,12 +1,19 @@
 import React from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useLocation} from "react-router-dom";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const ContentDetail = () => {
   const params = useParams();
+  const location = useLocation();
+
+  console.log(params, location)
 
   return (
       <div>
-        {`캠핑장 ${params.id}의 상세 페이지`}
+        <Header />
+
+        <Footer />
       </div>
   )
 }

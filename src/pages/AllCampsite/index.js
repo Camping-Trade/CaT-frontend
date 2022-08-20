@@ -16,9 +16,9 @@ import {
   ResultWrapper, SearchBtn,
   SearchInputWrapper, Select,
   TopWrapper,
-  Wrapper
 } from "./style";
 import { FaSistrix } from 'react-icons/fa';
+import {PageWrapper} from "../../styles/PageLayout";
 
 
 const AllCampsite = () => {
@@ -157,7 +157,7 @@ const AllCampsite = () => {
   return (
       <div>
         <Header/>
-        <Wrapper>
+        <PageWrapper>
           <TopWrapper>
             {/*<MapWrapper id="kakao-map"/>*/}
             <SearchInputWrapper>
@@ -198,7 +198,7 @@ const AllCampsite = () => {
                 <Pagination pages={pages} setPages={setPages} totalPageCount={totalPageCount} pageNo={pageNo} setPageNo={setPageNo}/>
             }
           </BottomWrapper>
-        </Wrapper>
+        </PageWrapper>
         <Footer />
       </div>
   )
