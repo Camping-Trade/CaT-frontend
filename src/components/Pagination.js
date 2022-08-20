@@ -8,7 +8,6 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
   const [showGoLeftPages, setShowGoLeftPages] = useState(false);
   const [showGoRightPages, setShowGoRightPages] = useState(true);
 
-  console.log("totalPageCount: ", totalPageCount)
 
   useEffect(() => {
     if(totalPageCount <= 5) setShowGoRightPages(false);
@@ -29,8 +28,8 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
 
   // 페이지 넘기기
   const onClickNextPages = () => {
-    console.log("페이지 넘기기");
-    console.log("페이지:" + pages);
+    // console.log("페이지 넘기기");
+    // console.log("페이지:" + pages);
     let list = [];
     for(let i=0; i<5; i++){
       list[i] = pages[i]+5;
@@ -45,8 +44,8 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
 
   //페이지 돌아가기
   const onClickPreviousPages = () => {
-    console.log("페이지 돌아가기");
-    console.log("페이지: " + pages);
+    // console.log("페이지 돌아가기");
+    // console.log("페이지: " + pages);
     if(pages.length < 5){
       for(let i=0; i<5; i++) pages[i] = pages[0]+i;
     }
@@ -64,7 +63,7 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
 
   // 페이지 번호
   const showPages = pages.map((page) => {
-    console.log("page: ", page, " pageNo: ", pageNo)
+    // console.log("page: ", page, " pageNo: ", pageNo)
     return (
         <PageNum onClick={onClickPage} check={page === pageNo}>
           {page}
