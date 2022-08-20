@@ -32,7 +32,7 @@ const OneCampsiteOnList = ({data}) => {
               <Intro>{campsite.lineIntro}</Intro>
             </div>
             <div>
-              <Address>{address}</Address>
+              <Address>[{address}]</Address>
               <Induty>야영장구분 | {campsite.induty}</Induty>
             </div>
           </Content>

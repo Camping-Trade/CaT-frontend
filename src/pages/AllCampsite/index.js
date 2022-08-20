@@ -1,11 +1,12 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 // Components
 import Header from "../../components/Header";
 import {SpotBasedSearch} from "../../components/GoCampingAPI/index";
-import {KakaoMapAPI, KakaoSpotBasedSearch} from "../../components/Map";
+// import {KakaoMapAPI, KakaoSpotBasedSearch} from "../../components/Map";
 import AreacodeAPI from "../../components/AreacodeAPI";
 import OneCampsiteOnList from "../../components/OneCampsiteOnList";
+import Pagination from "../../components/Pagination";
 import Footer from "../../components/Footer";
 // Style
 import {
@@ -29,18 +30,19 @@ const AllCampsite = () => {
   // 지역명
   const [selectedLocalText1, setSelectedLocalText1] = useState("");
   const [selectedLocalText2, setSelectedLocalText2] = useState("");
+  // 지역명에 해당하는 x, y 좌표
+  const [coordX, setCoordX] = useState(0);
+  const [cooredY, setCoordY] = useState(0);
   // 지역코드1로 조회한 지역 결과 리스트
   const [area1Items, setArea1Items] = useState([]);
   // 지역코드2로 조회한 지역 결과 리스트
   const [area2Items, setArea2Items] = useState([]);
   // 고캠핑 검색 결과
   const [campsiteList, setCampsiteList] = useState([]);
-  const [numOfRows, setNumOfRows] = useState(15);
   const [pageNo, setPageNo] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
   // 페이지네이션
-  // const [pages, setPages] = useState([1]);
-  // const [totalPageCount, setTotalPageCount] = useState(0);
+  const [pages, setPages] = useState([]);
+  const [totalPageCount, setTotalPageCount] = useState(0);
 
   // 카카오맵 불러오기
   // useEffect(() => {
@@ -73,13 +75,12 @@ const AllCampsite = () => {
         })
   },[areaCode]);
 
-  // 페이지네이션
-  // useEffect(() => {
-  //   let totalPage = parseInt(totalCount / numOfRows);
-  //   if(totalCount % numOfRows !== 0) totalPage += 1;
-  //   // console.log("totalPage: ", totalPage)
-  //   setTotalPageCount(totalPage);
-  // },[pageNo, totalCount]);
+  // 캠핑장 정보 불러오기
+  useEffect(() => {
+    if(coordX === 0 && cooredY === 0) return
+    callGoCamping(coordX, cooredY, pageNo);
+  },[coordX, cooredY, pageNo]);
+
 
 
   // 지역1 선택
@@ -102,6 +103,10 @@ const AllCampsite = () => {
 
   // 검색
   const onClickSearch = async () => {
+    if(areaCode !== 8 && (!selectedLocalText1 || !selectedLocalText2)) {
+      alert('지역을 선택해주세요.');
+      return;
+    }
     // 주소 -> 좌표 변환
     await axios
         .get('https://dapi.kakao.com//v2/local/search/address.json',{
@@ -116,32 +121,35 @@ const AllCampsite = () => {
           console.log("👍주소->좌표 변환 호출 성공", res.data);
           const x = res.data.documents[0].x;
           const y = res.data.documents[0].y;
-
-          callGoCamping(x, y)
-              .then((res) => {
-                console.log("고캠핑 검색 결과: ", res);
-                setCampsiteList(res[0]);
-                setNumOfRows(res[1].value);
-                // setPageNo(res[2].value);
-                setTotalCount(res[2].value);
-              })
-              .catch((err) => {
-                console.log(err);
-              })
+          setCoordX(x);
+          setCoordY(y);
         })
         .catch((err) => {
           console.log("🧨주소->좌표 변환 호출 실패", err);
         })
   };
 
-  async function callGoCamping(x, y) {
-    return await SpotBasedSearch(x, y);
-  }
+  // 고캠핑 데이터 불러오기
+  const callGoCamping = async (x, y, pg) => {
+    return await SpotBasedSearch(x, y, pg)
+        .then((res) => {
+          console.log("고캠핑 검색 결과: ", res);
+          setCampsiteList(res[0]);
+          // 총 페이지카운트 계산
+          let totalCount = res[2].value;
+          let numOfRows = res[1].value;
+          let totalPage = parseInt(totalCount / numOfRows);
+          if(totalCount % numOfRows !== 0) totalPage += 1;
+          setTotalPageCount(totalPage);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+  };
 
 
   // 고캠핑 검색 결과 리스트 나타내기
   const CampsiteList = campsiteList.map((campsite) => {
-    if(!campsiteList) return (<div>캠핑장을 검색하세요!</div>)
     return <OneCampsiteOnList data={campsite.children}/>
   });
 
@@ -154,7 +162,7 @@ const AllCampsite = () => {
             {/*<MapWrapper id="kakao-map"/>*/}
             <SearchInputWrapper>
               <Select onChange={SelectLocal1} value={selectedLocal1}>
-                <option value="" disabled defaultValue>-- 지역1 --</option>
+                <option value="" disabled defaultValue>-- 도 --</option>
                 {area1Items.map((item) => {
                   const rnum = item.children[0].value;
                   const code = item.children[1].value;
@@ -163,7 +171,7 @@ const AllCampsite = () => {
                 })}
               </Select>
               <Select onChange={SelectLocal2} value={selectedLocal2}>
-                <option value="" disabled defaultValue>-- 지역2 --</option>
+                <option value="" disabled defaultValue>-- 시군구 --</option>
                 {area2Items.map((item) => {
                   const rnum = item.children[0].value;
                   const code = item.children[1].value;
@@ -180,9 +188,15 @@ const AllCampsite = () => {
           <BottomWrapper>
             <ResultWrapper>
               {campsiteList.length === 0
-                  ? (<DefaultInform>🏕 캠핑장을 검색하세요! 🏕</DefaultInform>)
-                  : CampsiteList}
+                  ?
+                  <DefaultInform>🏕 캠핑장을 검색하세요! 🏕</DefaultInform>
+                  :
+                  CampsiteList
+              }
             </ResultWrapper>
+            {totalPageCount !== 0 &&
+                <Pagination pages={pages} setPages={setPages} totalPageCount={totalPageCount} pageNo={pageNo} setPageNo={setPageNo}/>
+            }
           </BottomWrapper>
         </Wrapper>
         <Footer />

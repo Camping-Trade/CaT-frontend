@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import {parseXML} from "../XMLParser";
 
-export const SpotBasedSearch = async (x, y) => {
+export const SpotBasedSearch = async (x, y, pageNo) => {
 
   const API_KEY = process.env.REACT_APP_GOCAMPING_API_KEY;
   const url = "http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/locationBasedList";
@@ -16,13 +16,13 @@ export const SpotBasedSearch = async (x, y) => {
       .get(url, {
         params: {
           ServiceKey: API_KEY,
-          pageNo: 1,
+          pageNo: pageNo,
           numOfRows: 15,
           MobileOS: "WIN",
           MobileApp: "CaT",
           mapX: x,  // ex
           mapY: y,   // ex
-          radius: 10000
+          radius: 20000
         }
       })
       .then((res) => {
