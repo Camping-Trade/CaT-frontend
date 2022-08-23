@@ -10,10 +10,10 @@ import {
   BottomTitle,
   BottomWrapper, ImgInputLabel, ImgWrapper,
   NewCommentContainer,
-  NewCommentWrapper, PreviewWrapper, StarWrapper,
+  NewCommentWrapper, PreviewWrapper, ReviewCard, ReviewInfo, ReviewImgs, ReviewWrapper, ReviewWriter, StarWrapper,
   TextAreaWrapper,
   TopWrapper,
-  UploadBtn
+  UploadBtn, ReviewContent
 } from "./style";
 import {BiImageAdd} from "react-icons/bi";
 
@@ -25,6 +25,16 @@ const ContentDetail = () => {
   // 후기 입력 내용
   const [content, onChangeContent, setContent] = useInput("");
   const [previewImg, setPreviewImg] = useState([]);
+
+  // 후기 목록
+  const [reviews, setReviews] = useState([
+    {name: "사용자1", content: "여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요", star: 5, imgUrl:
+          ["https://blog.kakaocdn.net/dn/xxyIJ/btq92x3CGjB/Yc203QOlRmjDO2rjKC4TDK/img.jpg",
+            "https://img.hankyung.com/photo/202111/AA.28096233.1.jpg"]},
+    {name: "사용자2", content: "여기 별로에요ㅜ", star: 1, imgUrl: []},
+    {name: "사용자3", content: "좋아용", star: 3, imgUrl: []},
+    {name: "사용자4", content: "good", star: 4, imgUrl: []},
+  ])
 
 
   // 이미지 업로드
@@ -43,6 +53,27 @@ const ContentDetail = () => {
   }
 
 
+  // 리뷰 목록 show
+  const ShowReviews = reviews.map((review, index) => {
+    return (
+        <ReviewCard key={index}>
+          {review.imgUrl &&
+              <ReviewImgs>
+                {(review.imgUrl).map((url, idx) => {
+                  return <img src={url} key={idx}/>
+                })}
+              </ReviewImgs>
+          }
+          <ReviewInfo>
+            <p>★: {review.star}</p>
+            <ReviewContent>{review.content}</ReviewContent>
+            <ReviewWriter>{review.name}</ReviewWriter>
+          </ReviewInfo>
+        </ReviewCard>
+    )
+  })
+
+
   return (
       <div>
         <Header />
@@ -50,7 +81,11 @@ const ContentDetail = () => {
           <TopWrapper>정보</TopWrapper>
           <BottomTitle>Review</BottomTitle>
           <BottomWrapper>
-            <div>후기 리스트</div>
+
+            {/* 리뷰 목록 */}
+            <ReviewWrapper>
+              {ShowReviews}
+            </ReviewWrapper>
 
             {/* 후기 작성 */}
             <NewCommentWrapper>

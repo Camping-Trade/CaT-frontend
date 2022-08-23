@@ -16,6 +16,52 @@ export const BottomWrapper = styled.div`
   width: 80%;
 `
 
+export const ReviewWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+`
+
+export const ReviewCard = styled.div`
+  height: fit-content;
+  
+  margin: 1%;
+  padding: 10px;
+  border: 2px solid ${Color.borderColor};
+  border-radius: 10px;
+`
+
+export const ReviewImgs = styled.div`
+  width: 280px;
+  height: 280px;
+  
+  border: 1px solid gainsboro;
+  
+  overflow-x: hidden;
+  
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+`
+
+export const ReviewInfo = styled.div`
+  width: 280px;
+  border: 1px solid transparent;
+`
+
+export const ReviewContent = styled.div`
+  max-height: 100px;
+  overflow-y: scroll;
+  border: 1px solid gainsboro;
+  padding: 2px;
+`
+
+export const ReviewWriter = styled.p`
+  font-size: small;
+`
+
 export const NewCommentWrapper = styled.div`
   
 `
