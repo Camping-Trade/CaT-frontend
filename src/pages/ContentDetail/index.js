@@ -78,7 +78,10 @@ const ContentDetail = () => {
       <div>
         <Header />
         <PageWrapper>
+          {/* 상세 캠핑장 정보 */}
           <TopWrapper>정보</TopWrapper>
+
+          {/* 리뷰 */}
           <BottomTitle>Review</BottomTitle>
           <BottomWrapper>
 
@@ -87,7 +90,7 @@ const ContentDetail = () => {
               {ShowReviews}
             </ReviewWrapper>
 
-            {/* 후기 작성 */}
+            {/* 리뷰 작성 */}
             <NewCommentWrapper>
               <p>{'사용자 닉네임'}</p>  {/*로그인 정보 받아오기*/}
               <NewCommentContainer>
