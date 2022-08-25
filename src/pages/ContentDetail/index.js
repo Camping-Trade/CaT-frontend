@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams, useLocation} from "react-router-dom";
 import useInput from "../../hooks/useInput";
 // Components
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import {KakaoMapMarker} from "../../components/MapAPI";
 // Style
 import {PageWrapper} from "../../styles/PageLayout";
 import {
@@ -63,6 +64,12 @@ const ContentDetail = () => {
     {name: "사용자3", content: "좋아용", star: 3, imgUrl: []},
     {name: "사용자4", content: "good", star: 4, imgUrl: []},
   ])
+
+
+  // 카카오맵 불러오기
+  useEffect(() => {
+    KakaoMapMarker(Campsite.mapY, Campsite.mapX, Campsite.facltNm);
+  },[Campsite.mapY, Campsite.mapX, Campsite.facltNm]);
 
 
   // 이미지 업로드
@@ -131,7 +138,7 @@ const ContentDetail = () => {
                   href={Campsite.homepage}>
                 홈페이지 바로가기
               </StyledAtag>
-              <Map>지도</Map>
+              <Map id="kakao-map" />
               <div>{Campsite.direction}</div>
             </LeftWrapper>
 

@@ -36,6 +36,7 @@ export const LeftInfo = styled.span`
 
 export const Map = styled.div`
   width: 100%;
+  height: 300px;
   margin: 10px 0;
   border: 1px solid;  // 임시
 `
