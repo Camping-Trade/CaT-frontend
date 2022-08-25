@@ -16,9 +16,9 @@ import {
   ResultWrapper, SearchBtn,
   SearchInputWrapper, Select,
   TopWrapper,
-  Wrapper
 } from "./style";
 import { FaSistrix } from 'react-icons/fa';
+import {PageWrapper} from "../../styles/PageLayout";
 
 
 const AllCampsite = () => {
@@ -157,9 +157,11 @@ const AllCampsite = () => {
   return (
       <div>
         <Header/>
-        <Wrapper>
+        <PageWrapper>
           <TopWrapper>
             {/*<MapWrapper id="kakao-map"/>*/}
+
+            {/* 검색 */}
             <SearchInputWrapper>
               <Select onChange={SelectLocal1} value={selectedLocal1}>
                 <option value="" disabled defaultValue>-- 도 --</option>
@@ -180,11 +182,13 @@ const AllCampsite = () => {
                 })}
               </Select>
               {/*<input />*/}
-              <SearchBtn onClick={onClickSearch}>
+              <SearchBtn title="검색" onClick={onClickSearch}>
                 <FaSistrix />
               </SearchBtn>
             </SearchInputWrapper>
           </TopWrapper>
+
+          {/* 검색 결과 */}
           <BottomWrapper>
             <ResultWrapper>
               {campsiteList.length === 0
@@ -198,7 +202,7 @@ const AllCampsite = () => {
                 <Pagination pages={pages} setPages={setPages} totalPageCount={totalPageCount} pageNo={pageNo} setPageNo={setPageNo}/>
             }
           </BottomWrapper>
-        </Wrapper>
+        </PageWrapper>
         <Footer />
       </div>
   )

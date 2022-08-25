@@ -7,9 +7,14 @@ import ContentDetail from "./pages/ContentDetail";
 function App() {
   return (
       <Routes>
+        {/* Main */}
         <Route exact path="/" element={<Main />}/>
-        <Route path="/campsites" element={<AllCampsite />}/>
-        <Route path="/campsites/:id" element={<ContentDetail />}/>
+
+        {/* 캠핑장 */}
+        <Route path="campsites">
+          <Route path="all" element={<AllCampsite />} />
+          <Route path=":id" element={<ContentDetail />}/>
+        </Route>
       </Routes>
   )
 }

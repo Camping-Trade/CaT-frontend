@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   padding: 10px 10px 10px 0;
   border: 3px solid ${Color.borderColor};
   border-radius: 10px;
-  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  box-shadow: ${Color.cardBoxShadow};
 
   :hover{
     transform:scale(1.1);
