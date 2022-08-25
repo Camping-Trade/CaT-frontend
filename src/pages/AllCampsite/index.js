@@ -3,7 +3,6 @@ import axios from "axios";
 // Components
 import Header from "../../components/Header";
 import {SpotBasedSearch} from "../../components/GoCampingAPI/index";
-// import {KakaoMapAPI, KakaoSpotBasedSearch} from "../../components/Map";
 import AreacodeAPI from "../../components/AreacodeAPI";
 import OneCampsiteOnList from "../../components/OneCampsiteOnList";
 import Pagination from "../../components/Pagination";
@@ -12,7 +11,6 @@ import Footer from "../../components/Footer";
 import {
   BottomWrapper,
   DefaultInform,
-  MapWrapper,
   ResultWrapper, SearchBtn,
   SearchInputWrapper, Select,
   TopWrapper,
@@ -44,10 +42,6 @@ const AllCampsite = () => {
   const [pages, setPages] = useState([]);
   const [totalPageCount, setTotalPageCount] = useState(0);
 
-  // 카카오맵 불러오기
-  // useEffect(() => {
-  //   // KakaoMapAPI();
-  // },[]);
 
   // 지역 코드1 불러오기
   useEffect(() => {

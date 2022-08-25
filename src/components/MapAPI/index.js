@@ -13,7 +13,7 @@ let map;
     center: new kakao.maps.LatLng(33.450701, 126.570667),
     level: 3
   };
-  map = new kakao.maps.Map(container, options);
+  map = new kakao.maps.MapAPI(container, options);
 };
 */
 
