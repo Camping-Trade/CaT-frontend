@@ -19,6 +19,8 @@ export const LeftWrapper = styled.div`
   padding: 0 10px 10px;
   border: 3px solid ${Color.pointcolor};
   border-radius: 10px;
+
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 `
 
 export const Title = styled.p`
@@ -113,6 +115,8 @@ export const ReviewCard = styled.div`
   padding: 10px;
   border: 2px solid ${Color.borderColor};
   border-radius: 10px;
+
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
 `
 
 export const ReviewImgs = styled.div`
@@ -136,10 +140,11 @@ export const ReviewInfo = styled.div`
 `
 
 export const ReviewContent = styled.div`
-  max-height: 100px;
   overflow-y: scroll;
   border: 1px solid gainsboro;
   padding: 2px;
+  
+  max-height: 120px;
 `
 
 export const ReviewWriter = styled.p`
@@ -165,6 +170,14 @@ export const StarWrapper = styled.div`
   
   & > select {
     margin: 0 5px;
+    // 코드 중복 - 전체 캠핑장 페이지 검색
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px -2px #9098A9;
+    :focus {
+      outline: none;
+      border-color: ${Color.pointcolor};
+    }
   }
 `
 
