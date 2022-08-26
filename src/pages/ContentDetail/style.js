@@ -26,6 +26,7 @@ export const LeftWrapper = styled.div`
 export const Title = styled.p`
   font-size: x-large;
   font-weight: bold;
+  margin-bottom: 0;
 `
 
 export const LeftInfo = styled.span`
@@ -37,7 +38,7 @@ export const LeftInfo = styled.span`
 export const Map = styled.div`
   width: 100%;
   height: 300px;
-  margin: 10px 0;
+  margin: 20px 0 10px;
   border: 1px solid;  // 임시
 `
 
@@ -51,14 +52,12 @@ export const RightWrapper = styled.div`
 
 export const ImgsWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
 
   margin: 10px 0;
   
   & > img {
-    width: 80%;
-    height: 80%;
+    width: 100%;
     object-fit: contain;
   }
 `
