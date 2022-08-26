@@ -125,9 +125,7 @@ const ContentDetail = () => {
               <Title>{Campsite.facltNm}</Title>
               {/* 이미지 */}
               <ImgsWrapper>
-                <StyledBtn>◀ ︎prev</StyledBtn>
                 <img src={Campsite.firstImageUrl} alt="대표이미지" />
-                <StyledBtn>next ▶︎</StyledBtn>
               </ImgsWrapper>
 
               <LeftInfo>주소: {Campsite.addr1} {Campsite.addr2}</LeftInfo>
