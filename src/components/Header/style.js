@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.header`
   left: 0;
   right: 0;
   
-  padding: 10px 40px;
+  padding: 0 40px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   
   background-color: white;
