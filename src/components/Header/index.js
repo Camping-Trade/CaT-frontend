@@ -11,7 +11,7 @@ const Header = () => {
   return (
       <HeaderWrapper>
         <StyledLink to="/">
-          <img src={CaT} alt="로고" title="CaT"/>  {/*로고 디자인 변경 예정*/}
+          <img src={CaT} alt="로고" title="CaT" style={{width: "70px"}}/>
         </StyledLink>
         <StyledAtag href={KAKAO_AUTH_URL}>
           로그인

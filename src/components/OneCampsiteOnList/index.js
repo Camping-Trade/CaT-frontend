@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 // Style
 import {Address, Content, ContentWrapper, Induty, Intro, MainImg, Name, ReservBtn, Wrapper} from "./style";
 // Assets
-import Logo from "../../assets/CaT.png";
+import DefaultImg from "../../assets/CaT_clear.png";
 
 const OneCampsiteOnList = ({data}) => {
 
@@ -35,7 +35,7 @@ const OneCampsiteOnList = ({data}) => {
             ? <MainImg src={campsite.firstImageUrl}
                        alt="대표이미지"
                        onClick={onClickDetail}/>
-            : <MainImg src={Logo} alt="디폴트 이미지" />
+            : <MainImg src={DefaultImg} alt="디폴트 이미지" />
         }
         <ContentWrapper>
           <Content onClick={onClickDetail}>
