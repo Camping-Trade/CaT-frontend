@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {parseXML} from "../XMLParser";
+import {parseXML} from "../../XMLParser";
 
 export const SpotBasedSearch = async (x, y, pageNo) => {
 
