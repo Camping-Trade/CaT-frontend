@@ -29,6 +29,15 @@ const OneCampsiteOnList = ({data}) => {
     })
   }
 
+  // 예약하기 클릭
+  const onClickReservation = () => {
+    navigate(`/reservation/${campsite.contentId}`, {
+      state: {
+        data: {campsite}
+      }
+    })
+  }
+
   return (
       <Wrapper>
         {(campsite.firstImageUrl)
@@ -48,7 +57,7 @@ const OneCampsiteOnList = ({data}) => {
               <Induty>야영장구분 | {campsite.induty}</Induty>
             </div>
           </Content>
-          <ReservBtn>
+          <ReservBtn onClick={onClickReservation}>
             예약하기
           </ReservBtn>
         </ContentWrapper>

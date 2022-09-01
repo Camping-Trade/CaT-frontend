@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useParams, useLocation} from "react-router-dom";
+import {useParams, useLocation, useNavigate} from "react-router-dom";
 import useInput from "../../hooks/useInput";
 // Components
 import Header from "../../components/Header";
@@ -33,7 +33,7 @@ import {
   ImgsWrapper,
   DetailWrapper,
   GrayDetail,
-  ShortComment, LongComment
+  ShortComment, LongComment, TitleWrapper
 } from "./style";
 import {BiImageAdd} from "react-icons/bi";
 import {StyledAtag} from "../../styles/StyledLink";
@@ -45,6 +45,8 @@ const ContentDetail = () => {
   const params = useParams();
   const location = useLocation();
   console.log(params, location)
+
+  const navigate = useNavigate();
 
   // 캠핑장 정보
   const Campsite = location.state.data.campsite;
@@ -92,6 +94,15 @@ const ContentDetail = () => {
     setShowLongComment(prev => !prev);
   }
 
+  // 예약하기 클릭
+  const onClickReservation = () => {
+    navigate(`/reservation/${params.id}`, {
+      state: {
+        data: Campsite
+      }
+    })
+  }
+
 
   // 리뷰 목록 show
   const ShowReviews = reviews.map((review, index) => {
@@ -122,7 +133,10 @@ const ContentDetail = () => {
           {/* 상세 캠핑장 정보 */}
           <TopWrapper>
             <LeftWrapper>
-              <Title>{Campsite.facltNm}</Title>
+              <TitleWrapper>
+                <Title>{Campsite.facltNm}</Title>
+                <StyledBtn onClick={onClickReservation}>예약하기</StyledBtn>
+              </TitleWrapper>
               {/* 이미지 */}
               <ImgsWrapper>
                 <img src={Campsite.firstImageUrl} alt="대표이미지" />
