@@ -13,5 +13,6 @@ export const StyledAtag = styled.a`
   
   :hover {
     color: ${props => props.hover || "none"};
+    cursor: pointer;
   }
 `
