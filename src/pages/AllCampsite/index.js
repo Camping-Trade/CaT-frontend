@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 // Components
 import Header from "../../components/Header";
-import {SpotBasedSearch} from "../../components/API/GoCampingAPI/index";
-import AreacodeAPI from "../../components/API/AreacodeAPI";
+import {SpotBasedSearch} from "../../components/PublicAPI/GoCampingAPI/index";
+import AreacodeAPI from "../../components/PublicAPI/AreacodeAPI";
 import OneCampsiteOnList from "../../components/OneCampsiteOnList";
 import Pagination from "../../components/Pagination";
 import Footer from "../../components/Footer";

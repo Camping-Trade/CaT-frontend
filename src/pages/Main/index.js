@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import Header from "../../components/Header";
-import TourPicsAPI from "../../components/API/TourPicsAPI";
+import TourPicsAPI from "../../components/PublicAPI/TourPicsAPI";
 import {BgImg, Btn, BtnWrapper, ImgSlideWrapper, PhoneImg, Title} from "./style";
 import Phone from "../../assets/Phone.png";
 

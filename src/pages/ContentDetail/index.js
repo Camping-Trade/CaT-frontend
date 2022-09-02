@@ -4,7 +4,7 @@ import useInput from "../../hooks/useInput";
 // Components
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import {KakaoMapMarker} from "../../components/API/MapAPI";
+import {KakaoMapMarker} from "../../components/PublicAPI/MapAPI";
 // Style
 import {PageWrapper} from "../../styles/PageLayout";
 import {
