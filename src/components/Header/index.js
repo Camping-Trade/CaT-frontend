@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useCookies} from "react-cookie";
-import {StyledLink, StyledAtag} from "../../styles/StyledLink";
-import StyledBtn from "../../styles/StyledBtn";
-import CaT from "../../assets/CaT.png";
-import {HeaderWrapper} from "./style";
 import HeaderModal from "../HeaderModal";
 import GetUserData from "../GetUserData";
+import {StyledLink, StyledAtag} from "../../styles/StyledLink";
+import CaT from "../../assets/CaT.png";
+import {HeaderWrapper, ProfileImg} from "./style";
 
 
 const Header = () => {
@@ -17,11 +16,19 @@ const Header = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
   const [showModal, setShowModal] = useState(false);
+  // 유저데이터
+  const [userData, setUserData] = useState({});
 
-  // 로그인한 사용자가 있을시 유저데이터 받아오기
-  cookies.appToken && GetUserData(cookies.appToken)
-      .then((res) => console.log("👍유저데이터 프로미스 반환", res))
-      .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+  // 로그인한 사용자가 있을시 유저데이터 받아오기(최초 1번)
+  useEffect(() => {
+    cookies.appToken && GetUserData(cookies.appToken)
+        .then((res) => {
+          console.log("👍유저데이터 프로미스 반환", res);
+          setUserData(res);
+        })
+        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+  },[cookies.appToken]);
+
 
   return (
       <HeaderWrapper>
@@ -31,9 +38,10 @@ const Header = () => {
         {cookies.appToken
             ?
             <>
-              <StyledBtn onClick={() => setShowModal(prev => !prev)}>   {/*프로필 이미지로 변경 가능*/}
-                내 프로필
-              </StyledBtn>
+              <ProfileImg
+                  src={userData.thumbnail_image_url}
+                  alt="프로필 이미지"
+                  onClick={() => setShowModal(prev => !prev)}/>
               <HeaderModal show={showModal} />
             </>
             :
