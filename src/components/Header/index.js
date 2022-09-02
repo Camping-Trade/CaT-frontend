@@ -5,6 +5,7 @@ import StyledBtn from "../../styles/StyledBtn";
 import CaT from "../../assets/CaT.png";
 import {HeaderWrapper} from "./style";
 import HeaderModal from "../HeaderModal";
+import GetUserData from "../GetUserData";
 
 
 const Header = () => {
@@ -16,7 +17,6 @@ const Header = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
   const [showModal, setShowModal] = useState(false);
-
 
   return (
       <HeaderWrapper>
