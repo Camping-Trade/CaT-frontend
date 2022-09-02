@@ -3,8 +3,9 @@ import {useCookies} from "react-cookie";
 import HeaderModal from "../HeaderModal";
 import GetUserData from "../GetUserData";
 import {StyledLink, StyledAtag} from "../../styles/StyledLink";
-import CaT from "../../assets/CaT.png";
 import {HeaderWrapper, ProfileImg} from "./style";
+import CaT from "../../assets/CaT.png";
+import DefaultProfileImg from "../../assets/CaT_bg.png";
 
 
 const Header = () => {
@@ -39,7 +40,9 @@ const Header = () => {
             ?
             <>
               <ProfileImg
-                  src={userData.thumbnail_image_url}
+                  src={userData.thumbnail_image_url !== ""
+                      ? userData.thumbnail_image_url
+                      : DefaultProfileImg}
                   alt="프로필 이미지"
                   onClick={() => setShowModal(prev => !prev)}/>
               <HeaderModal show={showModal} />
