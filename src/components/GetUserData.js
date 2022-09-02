@@ -1,24 +1,26 @@
 import axios from "axios";
 import preURL from "../preURL";
-import {useCookies} from "react-cookie";
 
-const GetUserData = async () => {
+const GetUserData = async (appToken) => {
 
-  const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
+  let data = [];
 
-  if(!cookies) return
+  if(!appToken) return
   await axios
       .get(preURL + '/member/details', {
         headers: {
-          Authorization : "Bearer "  + cookies
+          Authorization : "Bearer "  + appToken
         }
       })
       .then((res) => {
-        console.log("👍유저정보 받아오기 성공", res);
+        console.log("👍유저정보 받아오기 성공", res.data);
+        data = res.data;
       })
       .catch((err) => {
         console.log("🧨유저정보 받아오기 실패", err);
       })
+
+  return data;
 }
 
 export default GetUserData;

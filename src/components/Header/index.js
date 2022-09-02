@@ -18,6 +18,11 @@ const Header = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
   const [showModal, setShowModal] = useState(false);
 
+  // 로그인한 사용자가 있을시 유저데이터 받아오기
+  cookies.appToken && GetUserData(cookies.appToken)
+      .then((res) => console.log("👍유저데이터 프로미스 반환", res))
+      .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+
   return (
       <HeaderWrapper>
         <StyledLink to="/">
