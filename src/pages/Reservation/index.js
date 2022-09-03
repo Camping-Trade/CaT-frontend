@@ -1,8 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import {KakaoMapMarker} from "../../components/API/MapAPI";
+import {KakaoMapMarker} from "../../components/PublicAPI/MapAPI";
 import {PageWrapper} from "../../styles/PageLayout";
 import {
   CalendarWrapper,
@@ -18,6 +18,8 @@ import {
 } from "./style";
 import {StyledAtag} from "../../styles/StyledLink";
 import Color from "../../styles/Color";
+import GetUserData from "../../components/GetUserData";
+import {useCookies} from "react-cookie";
 
 
 const Reservation = () => {
@@ -30,6 +32,22 @@ const Reservation = () => {
   console.log(Campsite);
 
   const navigate = useNavigate();
+
+  const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
+
+  // 유저 포인트
+  const [userPoint, setUserPoint] = useState(0);
+
+
+  // 유저 정보 받아오기
+  useEffect(() => {
+    cookies.appToken && GetUserData(cookies.appToken)
+        .then((res) => {
+          console.log("👍유저데이터 프로미스 반환", res);
+          setUserPoint(res.point);
+        })
+        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+  },[cookies.appToken]);
 
   // 카카오맵 불러오기
   useEffect(() => {
@@ -122,11 +140,11 @@ const Reservation = () => {
             {/* 포인트 */}
             <PointWrapper>
               <p>포인트 사용하기</p>
-              <Input />
+              <Input type="number"/>
               <span>&nbsp;점</span>
-              <span>&nbsp;(사용가능 포인트: </span>
-              <span>{} 점)</span>
-            </PointWrapper>
+              <span>&nbsp;(사용가능 포인트:</span>
+              <span>&nbsp;{userPoint}점)</span>
+           </PointWrapper>
 
             <SubmitBtn>예약하기</SubmitBtn>
 
