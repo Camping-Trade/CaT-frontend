@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useLocation, useNavigate} from "react-router-dom";
+import {useCookies} from "react-cookie";
 import useInput from "../../hooks/useInput";
 // Components
 import Header from "../../components/Header";
@@ -52,6 +53,7 @@ const ContentDetail = () => {
   const Campsite = location.state.data.campsite;
   // console.log(Campsite);
 
+  const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
 
   // 후기 입력 내용
   const [content, onChangeContent, setContent] = useInput("");
@@ -96,6 +98,10 @@ const ContentDetail = () => {
 
   // 예약하기 클릭
   const onClickReservation = () => {
+    if(!cookies.appToken) {
+      alert("로그인 후 이용해주세요.");
+      return
+    }
     navigate(`/reservation/${params.id}`, {
       state: {
         data: Campsite

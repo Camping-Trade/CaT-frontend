@@ -1,13 +1,17 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
+import {useCookies} from "react-cookie";
 // Style
 import {Address, Content, ContentWrapper, Induty, Intro, MainImg, Name, ReservBtn, Wrapper} from "./style";
 // Assets
 import DefaultImg from "../../assets/CaT_clear.png";
 
+
 const OneCampsiteOnList = ({data}) => {
 
   const navigate = useNavigate();
+
+  const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
 
   // 캠핑장 데이터 접근하기 쉽도록 가공
   let campsite = {};
@@ -31,6 +35,10 @@ const OneCampsiteOnList = ({data}) => {
 
   // 예약하기 클릭
   const onClickReservation = () => {
+    if(!cookies.appToken) {
+      alert("로그인 후 이용해주세요.");
+      return
+    }
     navigate(`/reservation/${campsite.contentId}`, {
       state: {
         data: {campsite}
