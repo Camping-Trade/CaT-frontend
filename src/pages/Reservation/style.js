@@ -67,7 +67,7 @@ export const CalendarWrapper = styled.div`
 `
 
 export const Input = styled.input`
-  width: 100px;
+  width: 110px;
   position: relative;
   padding: 7px 12px;
   border: 1px solid #c8c8c8;

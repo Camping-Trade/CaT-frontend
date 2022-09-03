@@ -20,6 +20,7 @@ import {StyledAtag} from "../../styles/StyledLink";
 import Color from "../../styles/Color";
 import GetUserData from "../../components/GetUserData";
 import {useCookies} from "react-cookie";
+import useInput from "../../hooks/useInput";
 
 
 const Reservation = () => {
@@ -37,6 +38,13 @@ const Reservation = () => {
 
   // 유저 포인트
   const [userPoint, setUserPoint] = useState(0);
+  // 날짜 input
+  const [startDate, onChangeStartDate, setStartDate] = useInput("");
+  const [endDate, onChangeEndDate, setEndDate] = useInput("");
+  // 인원 input
+  const [people, onChangePeople, setPeople] = useInput();
+  // 포인트 사용 input
+  const [usePoint, setUsePoint] = useState();
 
 
   // 유저 정보 받아오기
@@ -53,6 +61,14 @@ const Reservation = () => {
   useEffect(() => {
     KakaoMapMarker(Campsite.mapY, Campsite.mapX, Campsite.facltNm);
   },[Campsite.mapY, Campsite.mapX, Campsite.facltNm]);
+
+
+  const onChangeUsePoint = (e) => {
+    const value = e.target.value;
+    if(value > userPoint) return
+    setUsePoint(value);
+  }
+
 
   // 캠핑장 디테일로 이동
   const onClickDetail = () => {
@@ -124,14 +140,28 @@ const Reservation = () => {
               <div>
                 <div>
                   <p>날짜</p>
-                  <Input type="date"/>
+                  <Input
+                      type="date"
+                      value={startDate}
+                      onChange={onChangeStartDate}
+                  />
                   &nbsp;~&nbsp;
-                  <Input type="date"/>
+                  <Input
+                      type="date"
+                      value={endDate}
+                      onChange={onChangeEndDate}
+                  />
                 </div>
                 {/* 인원 선택 */}
                 <div>
                   <p>인원</p>
-                  <Input type="number" />
+                  <Input
+                      type="number"
+                      placeholder="0"
+                      value={people}
+                      onChange={onChangePeople}
+                      min="0"
+                  />
                   <span>&nbsp;명</span>
                 </div>
               </div>
@@ -140,16 +170,21 @@ const Reservation = () => {
             {/* 포인트 */}
             <PointWrapper>
               <p>포인트 사용하기</p>
-              <Input type="number"/>
+              <Input
+                  type="number"
+                  placeholder={userPoint}
+                  value={usePoint}
+                  onChange={onChangeUsePoint}
+                  min="0"
+              />
               <span>&nbsp;점</span>
               <span>&nbsp;(사용가능 포인트:</span>
               <span>&nbsp;{userPoint}점)</span>
-           </PointWrapper>
+            </PointWrapper>
 
             <SubmitBtn>예약하기</SubmitBtn>
 
           </RightWrapper>
-
         </PageWrapper>
         <Footer />
       </div>
