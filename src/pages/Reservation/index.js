@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -48,6 +48,11 @@ const Reservation = () => {
   // 포인트 사용 warning
   const [warning, setWarning] = useState("");
 
+  // 인풋창 Ref
+  const dateRef = useRef(null);
+  const peopleRef = useRef(null);
+  const pointRef = useRef(null);
+
 
   // 유저 정보 받아오기
   useEffect(() => {
@@ -84,6 +89,26 @@ const Reservation = () => {
       }
     })
   }
+
+  // 예약 버튼 클릭
+  const onReserv = () => {
+    if(!startDate || !endDate || startDate > endDate) {
+      alert('날짜를 선택해주세요.');
+      dateRef.current.focus();
+      return
+    }
+    else if(!people || people <= 0) {
+      alert('인원을 입력해주세요.');
+      peopleRef.current.focus();
+      return
+    }
+    else if(usePoint > userPoint) {
+      alert('잔여 포인트 이상 사용할 수 없습니다.');
+      pointRef.current.focus();
+      return
+    }
+  }
+
 
   return (
       <div>
@@ -148,6 +173,7 @@ const Reservation = () => {
                   <p>날짜</p>
                   <Input
                       type="date"
+                      ref={dateRef}
                       value={startDate}
                       onChange={onChangeStartDate}
                   />
@@ -164,6 +190,7 @@ const Reservation = () => {
                   <Input
                       type="number"
                       placeholder="0"
+                      ref={peopleRef}
                       value={people}
                       onChange={onChangePeople}
                       min="0"
@@ -179,6 +206,7 @@ const Reservation = () => {
               <Input
                   type="number"
                   placeholder={userPoint}
+                  ref={pointRef}
                   value={usePoint}
                   onChange={onChangeUsePoint}
                   min="0"
@@ -189,7 +217,9 @@ const Reservation = () => {
               <Warning display={warning}>잔여 포인트 이상 사용할 수 없습니다.</Warning>
             </PointWrapper>
 
-            <SubmitBtn>예약하기</SubmitBtn>
+            <SubmitBtn onClick={onReserv}>
+              예약하기
+            </SubmitBtn>
 
           </RightWrapper>
         </PageWrapper>
