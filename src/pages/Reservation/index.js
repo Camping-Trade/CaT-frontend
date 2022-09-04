@@ -14,7 +14,7 @@ import {
   Name,
   OneInfo, SubmitBtn,
   RightWrapper,
-  SelectDateWrapper, PointWrapper
+  SelectDateWrapper, PointWrapper, Warning
 } from "./style";
 import {StyledAtag} from "../../styles/StyledLink";
 import Color from "../../styles/Color";
@@ -45,6 +45,8 @@ const Reservation = () => {
   const [people, onChangePeople, setPeople] = useInput();
   // 포인트 사용 input
   const [usePoint, setUsePoint] = useState();
+  // 포인트 사용 warning
+  const [warning, setWarning] = useState("");
 
 
   // 유저 정보 받아오기
@@ -65,7 +67,11 @@ const Reservation = () => {
 
   const onChangeUsePoint = (e) => {
     const value = e.target.value;
-    if(value > userPoint) return
+    // console.log("input: ", value);
+    if(value > userPoint) {
+      setWarning("block");
+    }
+    else setWarning("");
     setUsePoint(value);
   }
 
@@ -180,6 +186,7 @@ const Reservation = () => {
               <span>&nbsp;점</span>
               <span>&nbsp;(사용가능 포인트:</span>
               <span>&nbsp;{userPoint}점)</span>
+              <Warning display={warning}>잔여 포인트 이상 사용할 수 없습니다.</Warning>
             </PointWrapper>
 
             <SubmitBtn>예약하기</SubmitBtn>

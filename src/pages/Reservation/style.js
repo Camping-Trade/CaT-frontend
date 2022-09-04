@@ -87,6 +87,13 @@ export const PointWrapper = styled.div`
   margin: 20px 0;
 `
 
+export const Warning = styled.span`
+  display: ${props => props.display || 'none'};
+  margin: 3px 0;
+  font-size: small;
+  color: red;
+`
+
 export const SubmitBtn = styled(StyledBtn)`
   width: fit-content;
   align-self: flex-end;
