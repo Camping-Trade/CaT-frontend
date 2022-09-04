@@ -104,7 +104,7 @@ const ContentDetail = () => {
     }
     navigate(`/reservation/${params.id}`, {
       state: {
-        data: Campsite
+        data: location.state.data
       }
     })
   }
