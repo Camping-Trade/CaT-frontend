@@ -50,6 +50,7 @@ export const RightWrapper = styled.div`
 `
 
 export const Name = styled.p`
+  width: fit-content;
   font-size: x-large;
   font-weight: 600;
   
@@ -63,7 +64,11 @@ export const SelectDateWrapper = styled.div`
 
 export const CalendarWrapper = styled.div`
   width: 300px;
-  height: 300px;
+  padding: 5px;
+`
+
+export const InputWrapper = styled.div`
+  padding: 5px;
 `
 
 export const Input = styled.input`

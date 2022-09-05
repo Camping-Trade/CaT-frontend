@@ -1,8 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useCookies} from "react-cookie";
+import useInput from "../../hooks/useInput";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import {KakaoMapMarker} from "../../components/PublicAPI/MapAPI";
+import GetUserData from "../../components/GetUserData";
+import Calendar from "react-calendar";
+import "../../styles/Calendar.css";
 import {PageWrapper} from "../../styles/PageLayout";
 import {
   CalendarWrapper,
@@ -14,14 +19,26 @@ import {
   Name,
   OneInfo, SubmitBtn,
   RightWrapper,
-  SelectDateWrapper, PointWrapper, Warning
+  SelectDateWrapper, PointWrapper, Warning, InputWrapper
 } from "./style";
 import {StyledAtag} from "../../styles/StyledLink";
 import Color from "../../styles/Color";
-import GetUserData from "../../components/GetUserData";
-import {useCookies} from "react-cookie";
-import useInput from "../../hooks/useInput";
 
+// month: 영문 <-> 숫자
+const Month = {
+  "Jan": '01',
+  "Feb": '02',
+  "Mar": '03',
+  "Apr": '04',
+  "May": '05',
+  "Jun": '06',
+  "Jul": '07',
+  "Aug": '08',
+  "Sep": '09',
+  "Oct": '10',
+  "Nov": '11',
+  "Dec": '12'
+}
 
 const Reservation = () => {
   const params = useParams();
@@ -53,6 +70,18 @@ const Reservation = () => {
   const peopleRef = useRef(null);
   const pointRef = useRef(null);
 
+  const [calendar, setCalendar] = useState(String || []);
+  useEffect(() => {
+    console.log(calendar);
+    if(!calendar) return
+    let start = calendar[0].toString().split(" ");
+    let end = calendar[1].toString().split(" ");
+    const start_s = start[3] + "-" + Month[start[1]] + "-" + start[2];
+    const end_s = end[3] + "-" + Month[end[1]] + "-" + end[2];
+    console.log(start_s, end_s);
+    setStartDate(start_s);
+    setEndDate(end_s);
+  },[calendar])
 
   // 유저 정보 받아오기
   useEffect(() => {
@@ -167,8 +196,10 @@ const Reservation = () => {
 
             {/* */}
             <SelectDateWrapper>
-              <CalendarWrapper>달력</CalendarWrapper>
-              <div>
+              <CalendarWrapper>
+                <Calendar selectRange="true" value={calendar} onChange={setCalendar}/>
+              </CalendarWrapper>
+              <InputWrapper>
                 <div>
                   <p>날짜</p>
                   <Input
@@ -176,12 +207,15 @@ const Reservation = () => {
                       ref={dateRef}
                       value={startDate}
                       onChange={onChangeStartDate}
+                      disabled
                   />
                   &nbsp;~&nbsp;
                   <Input
                       type="date"
+                      ref={dateRef}
                       value={endDate}
                       onChange={onChangeEndDate}
+                      disabled
                   />
                 </div>
                 {/* 인원 선택 */}
@@ -197,7 +231,7 @@ const Reservation = () => {
                   />
                   <span>&nbsp;명</span>
                 </div>
-              </div>
+              </InputWrapper>
             </SelectDateWrapper>
 
             {/* 포인트 */}
