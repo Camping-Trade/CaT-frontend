@@ -40,6 +40,7 @@ import {BiImageAdd} from "react-icons/bi";
 import {StyledAtag} from "../../styles/StyledLink";
 import Color from "../../styles/Color";
 import StyledBtn from "../../styles/StyledBtn";
+import GetUserData from "../../components/GetUserData";
 
 
 const ContentDetail = () => {
@@ -54,6 +55,9 @@ const ContentDetail = () => {
   // console.log(Campsite);
 
   const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
+
+  // 사용자 닉네임
+  const [nickname, setNickname] = useState("");
 
   // 후기 입력 내용
   const [content, onChangeContent, setContent] = useInput("");
@@ -74,6 +78,17 @@ const ContentDetail = () => {
   useEffect(() => {
     KakaoMapMarker(Campsite.mapY, Campsite.mapX, Campsite.facltNm);
   },[Campsite.mapY, Campsite.mapX, Campsite.facltNm]);
+
+
+  // 유저 정보 받아오기
+  useEffect(() => {
+    cookies.appToken && GetUserData(cookies.appToken)
+        .then((res) => {
+          console.log("👍유저데이터 프로미스 반환", res);
+          setNickname(res.nickname);
+        })
+        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+  },[cookies.appToken]);
 
 
   // 이미지 업로드
@@ -288,7 +303,7 @@ const ContentDetail = () => {
 
             {/* 리뷰 작성 */}
             <NewCommentWrapper>
-              <p>{'사용자 닉네임'}</p>  {/*로그인 정보 받아오기*/}
+              <p>{nickname}</p>
               <NewCommentContainer>
                 <StarWrapper>
                   ★:
@@ -320,10 +335,20 @@ const ContentDetail = () => {
                 </UploadImgWrapper>
                 {/* 내용 입력 */}
                 <TextAreaWrapper>
-                  <textarea
-                      value={content}
-                      onChange={onChangeContent}
-                      placeholder="후기를 남겨주세요."/>
+                  {cookies.appToken
+                      ? (
+                          <textarea
+                              value={content}
+                              onChange={onChangeContent}
+                              placeholder="후기를 남겨주세요."/>
+                      ) : (
+                          <textarea
+                              value={content}
+                              onChange={onChangeContent}
+                              placeholder="로그인 후 이용해주세요."
+                              disabled/>
+                      )}
+
                 </TextAreaWrapper>
                 {/* 업로드 클릭 */}
                 <UploadBtn>Upload</UploadBtn>
