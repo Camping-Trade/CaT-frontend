@@ -14,7 +14,7 @@ const HeaderModal = ({show}) => {
     if(!logout) return
 
     removeCookie('appToken', {path: '/'});
-    window.location.reload();
+    // window.location.reload();
     alert("로그아웃 되었습니다.");
     navigate("/");
   }

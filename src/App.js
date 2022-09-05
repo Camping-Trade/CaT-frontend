@@ -4,21 +4,29 @@ import Main from "./pages/Main";
 import AllCampsite from "./pages/AllCampsite";
 import ContentDetail from "./pages/ContentDetail";
 import KakaoLoginRedirect from "./pages/Login/KakaoLoginRedirect";
+import Reservation from "./pages/Reservation";
 
 function App() {
   return (
       <Routes>
+
         {/* Main */}
         <Route exact path="/" element={<Main />}/>
 
         {/* Login */}
         <Route path="/auth/kakao" element={<KakaoLoginRedirect />} />
 
-        {/* 캠핑장 */}
+        {/* Campsites */}
         <Route path="campsites">
           <Route path="all" element={<AllCampsite />} />
           <Route path=":id" element={<ContentDetail />}/>
         </Route>
+
+        {/* Reservation */}
+        <Route path="reservation">
+          <Route path=":id" element={<Reservation />} />
+        </Route>
+
       </Routes>
   )
 }

@@ -23,10 +23,17 @@ export const LeftWrapper = styled.div`
   box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
 `
 
-export const Title = styled.p`
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 15px 0 0 0;
+`
+
+export const Title = styled.span`
   font-size: x-large;
   font-weight: bold;
-  margin-bottom: 0;
+  //margin-bottom: 0;
 `
 
 export const LeftInfo = styled.span`
