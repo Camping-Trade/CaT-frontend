@@ -2,10 +2,13 @@ import React, {useEffect, useState} from "react";
 import {useParams, useLocation, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import useInput from "../../hooks/useInput";
+import axios from "axios";
+import preURL from "../../preURL";
 // Components
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import {KakaoMapMarker} from "../../components/PublicAPI/MapAPI";
+import GetUserData from "../../components/GetUserData";
 // Style
 import {PageWrapper} from "../../styles/PageLayout";
 import {
@@ -34,7 +37,7 @@ import {
   ImgsWrapper,
   DetailWrapper,
   GrayDetail,
-  ShortComment, LongComment, TitleWrapper
+  ShortComment, LongComment, TitleWrapper, ReviewDate
 } from "./style";
 import {BiImageAdd} from "react-icons/bi";
 import {StyledAtag} from "../../styles/StyledLink";
@@ -55,18 +58,22 @@ const ContentDetail = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(['appToken']);
 
+  // 사용자 닉네임
+  const [nickname, setNickname] = useState("");
+
   // 후기 입력 내용
+  const [star, onChangeStar, setStar] = useInput(5);
   const [content, onChangeContent, setContent] = useInput("");
   const [previewImg, setPreviewImg] = useState([]);
 
   // 후기 목록
   const [reviews, setReviews] = useState([
-    {name: "사용자1", content: "여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요", star: 5, imgUrl:
+    {writer: "사용자1", content: "여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요", rating: 5, createdDate: "22. 9. 6. 오전 1:48", imgUrl:
           ["https://blog.kakaocdn.net/dn/xxyIJ/btq92x3CGjB/Yc203QOlRmjDO2rjKC4TDK/img.jpg",
             "https://img.hankyung.com/photo/202111/AA.28096233.1.jpg"]},
-    {name: "사용자2", content: "여기 별로에요ㅜ", star: 1, imgUrl: []},
-    {name: "사용자3", content: "좋아용", star: 3, imgUrl: []},
-    {name: "사용자4", content: "good", star: 4, imgUrl: []},
+    {writer: "사용자2", content: "여기 별로에요ㅜ", rating: 1, createdDate: "22. 9. 6. 오전 1:48", imgUrl: []},
+    {writer: "사용자3", content: "좋아용", rating: 3, createdDate: "22. 9. 6. 오전 1:48", imgUrl: []},
+    {writer: "사용자4", content: "good", rating: 4, createdDate: "22. 9. 6. 오전 1:48", imgUrl: []},
   ])
 
 
@@ -74,6 +81,35 @@ const ContentDetail = () => {
   useEffect(() => {
     KakaoMapMarker(Campsite.mapY, Campsite.mapX, Campsite.facltNm);
   },[Campsite.mapY, Campsite.mapX, Campsite.facltNm]);
+
+
+  // 유저 정보 받아오기
+  useEffect(() => {
+    cookies.appToken && GetUserData(cookies.appToken)
+        .then((res) => {
+          console.log("👍유저데이터 프로미스 반환", res);
+          setNickname(res.nickname);
+        })
+        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+  },[cookies.appToken]);
+
+
+  // 리뷰 목록 받아오기
+  useEffect(() => {
+    axios
+        .get(preURL + `/camping/details/${Campsite.contentId}/reviews`, {
+          headers: {
+            'Authorization': 'Bearer ' + cookies.appToken
+          }
+        })
+        .then((res) => {
+          console.log("👍리뷰 목록 받아오기 성공", res);
+          setReviews(res.data);
+        })
+        .catch((err) => {
+          console.log("🧨리뷰 목록 받아오기 실패", err);
+        })
+  },[]);
 
 
   // 이미지 업로드
@@ -109,22 +145,49 @@ const ContentDetail = () => {
     })
   }
 
+  // 리뷰 업로드
+  const onClickUpload = () => {
+    const upload = window.confirm('리뷰를 업로드하시겠습니까?');
+    if(!upload) return
+    axios
+        .post(preURL + `/camping/details/${Campsite.contentId}/reviews`,{
+          "content": content,
+          "rating": star
+        },{
+          headers: {
+            'Authorization': 'Bearer ' + cookies.appToken
+          }
+        })
+        .then((res) => {
+          console.log("👍리뷰 업로드 성공", res);
+          alert('리뷰를 업로드했습니다!');
+          setContent("");
+          setStar(0);
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log("🧨리뷰 업로드 실패", err);
+        })
+  }
+
 
   // 리뷰 목록 show
   const ShowReviews = reviews.map((review, index) => {
     return (
         <ReviewCard key={index}>
-          {review.imgUrl &&
-              <ReviewImgs>
-                {(review.imgUrl).map((url, idx) => {
-                  return <img src={url} key={idx}/>
-                })}
-              </ReviewImgs>
-          }
+          {/*{review.imgUrl &&*/}
+          {/*    <ReviewImgs>*/}
+          {/*      {(review.imgUrl).map((url, idx) => {*/}
+          {/*        return <img src={url} key={idx}/>*/}
+          {/*      })}*/}
+          {/*    </ReviewImgs>*/}
+          {/*}*/}
+          <ReviewImgs>{""}</ReviewImgs>
           <ReviewInfo>
-            <p>★: {review.star}</p>
+            <p>★: {review.rating}</p>
             <ReviewContent>{review.content}</ReviewContent>
-            <ReviewWriter>{review.name}</ReviewWriter>
+            <ReviewWriter>{review.writer}</ReviewWriter>
+            <ReviewDate>{review.createdDate}</ReviewDate>
           </ReviewInfo>
         </ReviewCard>
     )
@@ -288,16 +351,16 @@ const ContentDetail = () => {
 
             {/* 리뷰 작성 */}
             <NewCommentWrapper>
-              <p>{'사용자 닉네임'}</p>  {/*로그인 정보 받아오기*/}
+              <p>{nickname}</p>
               <NewCommentContainer>
                 <StarWrapper>
                   ★:
-                  <select>
-                    <option>5</option>
-                    <option>4</option>
-                    <option>3</option>
-                    <option>2</option>
-                    <option>1</option>
+                  <select value={star} onChange={onChangeStar}>
+                    <option value={5}>5</option>
+                    <option value={4}>4</option>
+                    <option value={3}>3</option>
+                    <option value={2}>2</option>
+                    <option value={1}>1</option>
                   </select>
                 </StarWrapper>
                 <UploadImgWrapper>
@@ -320,13 +383,23 @@ const ContentDetail = () => {
                 </UploadImgWrapper>
                 {/* 내용 입력 */}
                 <TextAreaWrapper>
-                  <textarea
-                      value={content}
-                      onChange={onChangeContent}
-                      placeholder="후기를 남겨주세요."/>
+                  {cookies.appToken
+                      ? (
+                          <textarea
+                              value={content}
+                              onChange={onChangeContent}
+                              placeholder="후기를 남겨주세요."/>
+                      ) : (
+                          <textarea
+                              value={content}
+                              onChange={onChangeContent}
+                              placeholder="로그인 후 이용해주세요."
+                              disabled/>
+                      )}
+
                 </TextAreaWrapper>
                 {/* 업로드 클릭 */}
-                <UploadBtn>Upload</UploadBtn>
+                <UploadBtn onClick={onClickUpload}>Upload</UploadBtn>
               </NewCommentContainer>
             </NewCommentWrapper>
 

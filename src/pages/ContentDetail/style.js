@@ -158,6 +158,12 @@ export const ReviewWriter = styled.p`
   font-size: small;
 `
 
+export const ReviewDate = styled.span`
+  font-size: x-small;
+  display: block;
+  text-align: right;
+`
+
 export const NewCommentWrapper = styled.div`
   
 `
