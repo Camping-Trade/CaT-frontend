@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import {parseXML} from "../XMLParser";
+import {parseXML} from "../../XMLParser";
 
 const AreacodeAPI = async (areacode) => {
 

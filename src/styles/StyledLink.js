@@ -8,6 +8,11 @@ export const StyledLink = styled(Link)`
 `
 
 export const StyledAtag = styled.a`
-  color: black;
+  color: ${props => props.color || "black"};
   text-decoration: none;
+  
+  :hover {
+    color: ${props => props.hover || "none"};
+    cursor: pointer;
+  }
 `
