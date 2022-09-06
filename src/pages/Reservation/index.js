@@ -23,6 +23,8 @@ import {
 } from "./style";
 import {StyledAtag} from "../../styles/StyledLink";
 import Color from "../../styles/Color";
+import axios from "axios";
+import preURL from "../../preURL";
 
 // month: 영문 <-> 숫자
 const Month = {
@@ -70,18 +72,9 @@ const Reservation = () => {
   const peopleRef = useRef(null);
   const pointRef = useRef(null);
 
+  // 달력 날짜 선택값
   const [calendar, setCalendar] = useState(String || []);
-  useEffect(() => {
-    console.log(calendar);
-    if(!calendar) return
-    let start = calendar[0].toString().split(" ");
-    let end = calendar[1].toString().split(" ");
-    const start_s = start[3] + "-" + Month[start[1]] + "-" + start[2];
-    const end_s = end[3] + "-" + Month[end[1]] + "-" + end[2];
-    console.log(start_s, end_s);
-    setStartDate(start_s);
-    setEndDate(end_s);
-  },[calendar])
+
 
   // 유저 정보 받아오기
   useEffect(() => {
@@ -97,6 +90,19 @@ const Reservation = () => {
   useEffect(() => {
     KakaoMapMarker(Campsite.mapY, Campsite.mapX, Campsite.facltNm);
   },[Campsite.mapY, Campsite.mapX, Campsite.facltNm]);
+
+  // 달력 날짜 -> 날짜 인풋 창에 입력으로 변환
+  useEffect(() => {
+    // console.log(calendar);
+    if(!calendar) return
+    let start = calendar[0].toString().split(" ");
+    let end = calendar[1].toString().split(" ");
+    const start_s = start[3] + "-" + Month[start[1]] + "-" + start[2];
+    const end_s = end[3] + "-" + Month[end[1]] + "-" + end[2];
+    // console.log(start_s, end_s);
+    setStartDate(start_s);
+    setEndDate(end_s);
+  },[calendar]);
 
 
   const onChangeUsePoint = (e) => {
@@ -136,6 +142,31 @@ const Reservation = () => {
       pointRef.current.focus();
       return
     }
+
+    const reserv = window.confirm('예약하시겠습니까?');
+    if(!reserv) return
+    axios
+        .post(preURL + `/reservation/${Campsite.contentId}`,{
+          "campingName" : Campsite.facltNm,
+          "locationX" : Number(Campsite.mapX),
+          "locationY" : Number(Campsite.mapY),
+          "campingDateStart" : startDate.replace(/-/g, '.'),  //
+          "campingDateEnd" : endDate.replace(/-/g, '.'),
+          "numberOfPeople" : people,
+          "usingPoint" : usePoint,
+          "price" : 0   // 책정되는 금액 없음
+        }, {
+          headers: {
+            'Authorization': 'Bearer ' + cookies.appToken
+          }
+        })
+        .then((res) => {
+          console.log("👍예약 성공", res);
+          alert('예약되었습니다!');
+        })
+        .catch((err) => {
+          console.log("🧨예약 실패", err);
+        })
   }
 
 
