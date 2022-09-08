@@ -4,7 +4,7 @@ export const LeftWrapper = styled.div`
   display: flex;
   flex-direction: column;
   
-  margin: 20px;
+  margin: 40px auto 0;
 `
 
 export const ProfileImg = styled.img`
@@ -16,22 +16,59 @@ export const ProfileImg = styled.img`
 `
 
 export const InfoWrapper = styled.div`
-  
+  margin-top: 20px;
 `
 
 export const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
   
-  margin: 20px;
+  width: 60%;
+  margin: 20px 20px 0;
+`
+
+export const PointWrapper = styled.div`
+  width: fit-content;
 `
 
 export const PointTitle = styled.p`
   font-size: x-large;
   font-weight: 600;
   border-bottom: 1px solid;
+  
+  width: fit-content;
 `
 
 export const UserPoint = styled.span`
   font-size: large;
+`
+
+export const RecordWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 40px;
+`
+
+export const TradeRecord = styled.div`
+  width: 40%;
+`
+
+export const ReservRecord = styled.div`
+  width: 40%;
+  
+  & > p {
+    text-align: center;
+    font-size: large;
+    font-weight: 600;
+    border-bottom: 1px solid gray;
+  }
+`
+
+export const OneReserv = styled.div`
+  margin: 20px 0;
+  
+  & > span {
+    display: block;
+  }
 `

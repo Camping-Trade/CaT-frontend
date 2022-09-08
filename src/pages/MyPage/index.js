@@ -9,7 +9,16 @@ import Footer from "../../components/Footer";
 import GetUserData from "../../components/GetUserData";
 //
 import {PageWrapper} from "../../styles/PageLayout";
-import {InfoWrapper, ProfileImg, LeftWrapper, RightWrapper, PointTitle, UserPoint} from "./style";
+import {
+  InfoWrapper,
+  ProfileImg,
+  LeftWrapper,
+  RightWrapper,
+  PointTitle,
+  UserPoint,
+  RecordWrapper,
+  ReservRecord, TradeRecord, PointWrapper, OneReserv
+} from "./style";
 
 
 
@@ -24,6 +33,9 @@ const MyPage = () => {
   const [email, setEmail] = useState('');
   const [profileImg, setProfileImg] = useState('');
   const [userPoint, setUserPoint] = useState(Number);
+
+  // 예약 정보
+  const [reservList, setReservList] = useState([]);
 
 
   // 유저 정보 받아오기
@@ -50,6 +62,7 @@ const MyPage = () => {
         })
         .then((res) => {
           console.log('👍유저 예약 정보 받아오기 성공', res);
+          setReservList(res.data);
         })
         .catch((err) => {
           console.log('🧨유저 예약 정보 받아오기 실패', err);
@@ -57,27 +70,56 @@ const MyPage = () => {
   },[cookies.appToken]);
 
 
+  const Reservation = reservList.map((reserv, index) => {
+    return (
+        <OneReserv key={index}>
+          <span>{reserv.campingName}</span>
+          <span>예약 일자: {reserv.reservationDate}</span>
+          <span>예약 기간: {reserv.campingDateStart} ~ {reserv.campingDateEnd}</span>
+          <span>인원수: {reserv.numberOfPeople}</span>
+          <span>사용 포인트: {reserv.usingPoint}</span>
+        </OneReserv>
+    )
+  })
+
   return (
       <div>
         <Header />
-        <PageWrapper flexDirection="row" alignItems="flex-start">
+        <PageWrapper
+            flexDirection="row"
+            alignItems="flex-start"
+            justifyContent="space-between"
+        >
 
           {/* 유저 정보 */}
           <LeftWrapper>
             <ProfileImg src={profileImg} alt="프로필 이미지" />
             <InfoWrapper>
-              <p>{nickname}</p>
-              <p>{email}</p>
+              <p>닉네임 | {nickname}</p>
+              <p>이메일 | {email}</p>
             </InfoWrapper>
           </LeftWrapper>
 
           {/* 내역 정보 */}
           <RightWrapper>
-            <PointTitle>나의 Point</PointTitle>
-            <UserPoint>{userPoint}</UserPoint>
-            <div>
+            <PointWrapper>
+              <PointTitle>나의 Point</PointTitle>
+              <UserPoint>{userPoint}</UserPoint>
+            </PointWrapper>
 
-            </div>
+            <RecordWrapper>
+              {/* 나눔 내역 */}
+              <TradeRecord>
+
+              </TradeRecord>
+
+              {/* 예약 내역 */}
+              <ReservRecord>
+                <p>예약 내역</p>
+                {Reservation}
+              </ReservRecord>
+
+            </RecordWrapper>
           </RightWrapper>
 
         </PageWrapper>
