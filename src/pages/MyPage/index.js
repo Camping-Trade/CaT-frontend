@@ -17,7 +17,7 @@ import {
   PointTitle,
   UserPoint,
   RecordWrapper,
-  ReservRecord, TradeRecord, PointWrapper, OneReserv
+  Record, PointWrapper, OneReserv, OneTrade, OneTradeInfo, TradeType
 } from "./style";
 
 
@@ -34,8 +34,14 @@ const MyPage = () => {
   const [profileImg, setProfileImg] = useState('');
   const [userPoint, setUserPoint] = useState(Number);
 
-  // 예약 정보
+  // 예약 내역
   const [reservList, setReservList] = useState([]);
+
+  // 나눔 내역
+  const [tradeList, setTradeList] = useState([
+    {type: '나눔하기', date: '2022.09.01', camping: 'oo캠핑장', price: 5000},
+    {type: '나눔받기', date: '2022.09.05', camping: 'xx캠핑장', price: 4000}
+  ]);
 
 
   // 유저 정보 받아오기
@@ -70,6 +76,21 @@ const MyPage = () => {
   },[cookies.appToken]);
 
 
+  // 나눔 내역
+  const Trades = tradeList.map((trade, index) => {
+    return (
+        <OneTrade key={index}>
+          <OneTradeInfo>
+            <TradeType>{trade.type}</TradeType>
+            <span>{trade.date}&nbsp;&nbsp;</span>
+            <span>{trade.camping}</span>
+          </OneTradeInfo>
+          <span>{`+${trade.price}`}</span>
+        </OneTrade>
+    )
+  });
+
+  // 예약 내역
   const Reservation = reservList.map((reserv, index) => {
     return (
         <OneReserv key={index}>
@@ -80,7 +101,8 @@ const MyPage = () => {
           <span>사용 포인트: {reserv.usingPoint}</span>
         </OneReserv>
     )
-  })
+  });
+
 
   return (
       <div>
@@ -109,15 +131,16 @@ const MyPage = () => {
 
             <RecordWrapper>
               {/* 나눔 내역 */}
-              <TradeRecord>
-
-              </TradeRecord>
+              <Record>
+                <p>나눔 내역</p>
+                {Trades}
+              </Record>
 
               {/* 예약 내역 */}
-              <ReservRecord>
+              <Record>
                 <p>예약 내역</p>
                 {Reservation}
-              </ReservRecord>
+              </Record>
 
             </RecordWrapper>
           </RightWrapper>

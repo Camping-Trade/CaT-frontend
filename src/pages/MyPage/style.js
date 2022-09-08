@@ -50,11 +50,7 @@ export const RecordWrapper = styled.div`
   margin-top: 40px;
 `
 
-export const TradeRecord = styled.div`
-  width: 40%;
-`
-
-export const ReservRecord = styled.div`
+export const Record = styled.div`
   width: 40%;
   
   & > p {
@@ -63,6 +59,26 @@ export const ReservRecord = styled.div`
     font-weight: 600;
     border-bottom: 1px solid gray;
   }
+`
+
+export const OneTrade = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 20px 0;
+`
+
+export const OneTradeInfo = styled.div`
+  & > span {
+    font-size: small;
+  }
+`
+
+export const TradeType = styled.p`
+  font-size: large;
+  margin: 0;
 `
 
 export const OneReserv = styled.div`
