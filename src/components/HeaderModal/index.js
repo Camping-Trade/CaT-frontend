@@ -22,7 +22,7 @@ const HeaderModal = ({show}) => {
   if(!show) return
   return (
       <ModalWrapper>
-        <StyledBtn>마이페이지</StyledBtn>
+        <StyledBtn onClick={() => navigate('/mypage')}>마이페이지</StyledBtn>
         <Line></Line>
         <StyledBtn onClick={onLogout}>로그아웃</StyledBtn>
       </ModalWrapper>
