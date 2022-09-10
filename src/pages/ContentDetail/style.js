@@ -154,14 +154,23 @@ export const ReviewContent = styled.div`
   max-height: 120px;
 `
 
+export const WriterAndDate = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
 export const ReviewWriter = styled.p`
   font-size: small;
 `
 
-export const ReviewDate = styled.span`
+export const ReviewDate = styled.p`
   font-size: x-small;
+`
+
+export const DeleteBtn = styled(StyledBtn)`
   display: block;
-  text-align: right;
+  margin-left: auto;
 `
 
 export const NewCommentWrapper = styled.form`

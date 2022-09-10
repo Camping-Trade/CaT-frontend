@@ -37,7 +37,7 @@ import {
   ImgsWrapper,
   DetailWrapper,
   GrayDetail,
-  ShortComment, LongComment, TitleWrapper, ReviewDate
+  ShortComment, LongComment, TitleWrapper, ReviewDate, WriterAndDate, DeleteBtn
 } from "./style";
 import {BiImageAdd} from "react-icons/bi";
 import {StyledAtag} from "../../styles/StyledLink";
@@ -134,6 +134,7 @@ const ContentDetail = () => {
     })
   }
 
+  // 캠핑장 긴 코멘트 펼치기
   const [showLongComment, setShowLongComment] = useState(false);
   const onClickLongComment = () => {
     setShowLongComment(prev => !prev);
@@ -215,6 +216,31 @@ const ContentDetail = () => {
   },[content, star, newImages]);
 
 
+  // 리뷰 삭제
+  const onClickDelete = async (e) => {
+    // console.log(e);
+    const del = window.confirm('리뷰를 삭제하시겠습니까?');
+    if(!del) return
+
+    const reviewId = e.target.id;
+    await axios
+        .delete(preURL + `/camping/details/${Campsite.contentId}/reviews/${reviewId}`, {
+          headers: {
+            Authorization: `Bearer ${cookies.appToken}`
+          }
+        })
+        .then((res) => {
+          console.log("👍리뷰 삭제 성공", res);
+          alert('리뷰를 삭제하였습니다.');
+          window.location.reload();
+        })
+        .catch((err) => {
+          console.log("🧨리뷰 삭제 실패", err);
+        })
+  }
+
+
+
   // 리뷰 목록 show
   const ShowReviews = reviews.map((review, index) => {
     return (
@@ -229,8 +255,12 @@ const ContentDetail = () => {
           <ReviewInfo>
             <p>★: {review.rating}</p>
             <ReviewContent>{review.content}</ReviewContent>
-            <ReviewWriter>{review.writer}</ReviewWriter>
-            <ReviewDate>{review.createdDate}</ReviewDate>
+            <WriterAndDate>
+              <ReviewWriter>{review.writer}</ReviewWriter>
+              <ReviewDate>{review.createdDate}</ReviewDate>
+            </WriterAndDate>
+            {nickname === review.writer   // 로그인한 사용자와 리뷰 작성자가 동일하면
+                && <DeleteBtn id={review.reviewId} onClick={onClickDelete}>삭제</DeleteBtn>}
           </ReviewInfo>
         </ReviewCard>
     )
