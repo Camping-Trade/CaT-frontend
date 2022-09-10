@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useParams, useLocation, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import useInput from "../../hooks/useInput";
@@ -48,7 +48,7 @@ import StyledBtn from "../../styles/StyledBtn";
 const ContentDetail = () => {
   const params = useParams();
   const location = useLocation();
-  console.log(params, location)
+  // console.log(params, location)
 
   const navigate = useNavigate();
 
@@ -64,16 +64,17 @@ const ContentDetail = () => {
   // 후기 입력 내용
   const [star, onChangeStar, setStar] = useInput(5);
   const [content, onChangeContent, setContent] = useInput("");
+  const [newImages, setNewImages] = useState([]);
   const [previewImg, setPreviewImg] = useState([]);
 
   // 후기 목록
   const [reviews, setReviews] = useState([
-    {writer: "사용자1", content: "여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요", rating: 5, createdDate: "22. 9. 6. 오전 1:48", imgUrl:
+    {writer: "사용자1", content: "여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요", rating: 5, createdDate: "22. 9. 6. 오전 1:48", images:
           ["https://blog.kakaocdn.net/dn/xxyIJ/btq92x3CGjB/Yc203QOlRmjDO2rjKC4TDK/img.jpg",
             "https://img.hankyung.com/photo/202111/AA.28096233.1.jpg"]},
-    {writer: "사용자2", content: "여기 별로에요ㅜ", rating: 1, createdDate: "22. 9. 6. 오전 1:48", imgUrl: []},
-    {writer: "사용자3", content: "좋아용", rating: 3, createdDate: "22. 9. 6. 오전 1:48", imgUrl: []},
-    {writer: "사용자4", content: "good", rating: 4, createdDate: "22. 9. 6. 오전 1:48", imgUrl: []},
+    {writer: "사용자2", content: "여기 별로에요ㅜ", rating: 1, createdDate: "22. 9. 6. 오전 1:48", images: []},
+    {writer: "사용자3", content: "좋아용", rating: 3, createdDate: "22. 9. 6. 오전 1:48", images: []},
+    {writer: "사용자4", content: "good", rating: 4, createdDate: "22. 9. 6. 오전 1:48", images: []},
   ])
 
 
@@ -114,8 +115,14 @@ const ContentDetail = () => {
 
   // 이미지 업로드
   const onChangeImgInput = (e) => {
-    const list = Array.from(e.target.files);  // 유사배열을 배열로 변환 => map함수 처리 위해
+    const files = e.target.files;
+    console.log("files: ", files);
 
+    // 이미지 넘길 value
+    setNewImages(files);
+
+    // 이미지 미리보기 설정
+    const list = Array.from(files);  // 유사배열을 배열로 변환 => map함수 처리 위해
     let arr = [];
     list.forEach((img) => {
       const reader = new FileReader();
@@ -146,43 +153,79 @@ const ContentDetail = () => {
   }
 
   // 리뷰 업로드
-  const onClickUpload = () => {
+  const onSubmitUpload = useCallback(async (e) => {
+    e.preventDefault();
+    if(!content) {
+      alert('내용을 입력해주세요.');
+      e.preventDefault();
+      return
+    }
+
     const upload = window.confirm('리뷰를 업로드하시겠습니까?');
     if(!upload) return
-    axios
-        .post(preURL + `/camping/details/${Campsite.contentId}/reviews`,{
-          "content": content,
-          "rating": star
-        },{
-          headers: {
-            'Authorization': 'Bearer ' + cookies.appToken
-          }
-        })
+
+    const formData = new FormData();
+    const variables = {
+      content: content,
+      rating: star
+    }
+    formData.append('reviewRequestDto', new Blob([JSON.stringify(variables)], {type: "application/json"}));
+
+    /////////////////////// 사진 다중첨부 수정 필요 //////////////////////////
+    // let list = [];
+    for(let i=0; i<newImages.length; i++) {
+      console.log("newImages:", newImages[i]);
+      formData.append('images', newImages[i]);
+      // list.push(newImages[i]);
+    }
+    // formData.append('images', list);
+
+    // formData.append('images', newImages);
+
+    // list.forEach(image=> formData.append("images", image));
+
+    // formData.append('images', null);
+
+    await axios
+        .post(preURL + `/camping/details/${Campsite.contentId}/reviews`,
+            formData,
+            {
+              headers: {
+                'Authorization': 'Bearer ' + cookies.appToken,
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+        )
         .then((res) => {
           console.log("👍리뷰 업로드 성공", res);
           alert('리뷰를 업로드했습니다!');
           setContent("");
           setStar(0);
+          setNewImages("");
           window.location.reload();
         })
         .catch((err) => {
           console.log("🧨리뷰 업로드 실패", err);
         })
-  }
+
+    for (let value of formData.values()) {
+      console.log(value);
+    }
+
+  },[content, star, newImages]);
 
 
   // 리뷰 목록 show
   const ShowReviews = reviews.map((review, index) => {
     return (
         <ReviewCard key={index}>
-          {/*{review.imgUrl &&*/}
-          {/*    <ReviewImgs>*/}
-          {/*      {(review.imgUrl).map((url, idx) => {*/}
-          {/*        return <img src={url} key={idx}/>*/}
-          {/*      })}*/}
-          {/*    </ReviewImgs>*/}
-          {/*}*/}
-          <ReviewImgs>{""}</ReviewImgs>
+          {review.images &&
+              <ReviewImgs>
+                {(review.images).map((url, idx) => {
+                  return <img src={url} key={idx}/>
+                })}
+              </ReviewImgs>
+          }
           <ReviewInfo>
             <p>★: {review.rating}</p>
             <ReviewContent>{review.content}</ReviewContent>
@@ -350,7 +393,7 @@ const ContentDetail = () => {
             </ReviewWrapper>
 
             {/* 리뷰 작성 */}
-            <NewCommentWrapper>
+            <NewCommentWrapper enctype="multipart/form-data" onSubmit={onSubmitUpload}>
               <p>{nickname}</p>
               <NewCommentContainer>
                 <StarWrapper>
@@ -373,7 +416,7 @@ const ContentDetail = () => {
                       type="file"
                       accept="image/*"
                       onChange={onChangeImgInput}
-                      multiple
+                      // multiple
                       style={{display: "none"}}/>
                   <PreviewWrapper>
                     {previewImg.map((url, index) => {
@@ -399,7 +442,7 @@ const ContentDetail = () => {
 
                 </TextAreaWrapper>
                 {/* 업로드 클릭 */}
-                <UploadBtn onClick={onClickUpload}>Upload</UploadBtn>
+                <UploadBtn type="submit">Upload</UploadBtn>
               </NewCommentContainer>
             </NewCommentWrapper>
 

@@ -164,7 +164,7 @@ export const ReviewDate = styled.span`
   text-align: right;
 `
 
-export const NewCommentWrapper = styled.div`
+export const NewCommentWrapper = styled.form`
   
 `
 
