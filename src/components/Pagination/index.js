@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import styled from "styled-components";
-import StyledBtn from "../styles/StyledBtn";
-import Color from "../styles/Color";
+import {MoveBtn, PageNum, Pages, PaginationWrapper} from "./style";
+
 
 const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
 
@@ -22,8 +21,9 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
 
   // 페이지 클릭
   const onClickPage = (e) => {
-    console.log("페이지 클릭: ", e.target.innerHTML);
+    // console.log("페이지 클릭: ", e.target.innerHTML);
     setPageNo(parseInt(e.target.innerHTML));
+    window.scrollTo({top: 0});
   };
 
   // 페이지 넘기기
@@ -92,27 +92,3 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
 }
 
 export default Pagination;
-
-/*페이지네이션*/
-const PaginationWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`
-
-const Pages = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-const PageNum = styled(StyledBtn)`
-  font-size: 20px;
-  padding: 10px;
-  color: ${props => props.check ? Color.pointcolor : "none"};
-  border-radius: 50%;
-`
-
-const MoveBtn = styled(StyledBtn)`
-  padding: 5px;
-`
