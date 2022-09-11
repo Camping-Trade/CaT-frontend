@@ -2,9 +2,12 @@ import React, {useEffect} from "react";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
 import {useCookies} from "react-cookie";
-import preURL from "../../preURL";
+// import preURL from "../../preURL";
 
 const KakaoLoginRedirect = () => {
+
+  const preURL = process.env.REACT_APP_PREURL;
+
   const navigate = useNavigate();
 
   // 로그인 jwt토큰 쿠키에 저장

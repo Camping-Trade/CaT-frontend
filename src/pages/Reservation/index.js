@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useCookies} from "react-cookie";
+import axios from "axios";
+// import preURL from "../../preURL";
 import useInput from "../../hooks/useInput";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -23,8 +25,7 @@ import {
 } from "./style";
 import {StyledAtag} from "../../styles/StyledLink";
 import Color from "../../styles/Color";
-import axios from "axios";
-import preURL from "../../preURL";
+
 
 // month: 영문 <-> 숫자
 const Month = {
@@ -46,6 +47,8 @@ const Reservation = () => {
   const params = useParams();
   const location = useLocation();
   // console.log(params, location);
+
+  const preURL = process.env.REACT_APP_PREURL;
 
   // 캠핑장 정보
   const Campsite = location.state.data.campsite;

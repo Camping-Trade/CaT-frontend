@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import preURL from "../../preURL";
+// import preURL from "../../preURL";
 //
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -23,6 +23,8 @@ import {
 
 
 const MyPage = () => {
+
+  const preURL = process.env.REACT_APP_PREURL;
 
   const navigate = useNavigate();
 

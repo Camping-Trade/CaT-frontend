@@ -1,7 +1,9 @@
 import axios from "axios";
-import preURL from "../preURL";
+// import preURL from "../preURL";
 
 const GetUserData = async (appToken) => {
+
+  const preURL = process.env.REACT_APP_PREURL;
 
   let data = [];
 

@@ -3,7 +3,7 @@ import {useParams, useLocation, useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
-import preURL from "../../preURL";
+// import preURL from "../../preURL";
 // Components
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -49,6 +49,8 @@ const ContentDetail = () => {
   const params = useParams();
   const location = useLocation();
   // console.log(params, location)
+
+  const preURL = process.env.REACT_APP_PREURL;
 
   const navigate = useNavigate();
 
