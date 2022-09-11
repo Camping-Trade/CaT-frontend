@@ -172,20 +172,10 @@ const ContentDetail = () => {
     }
     formData.append('reviewRequestDto', new Blob([JSON.stringify(variables)], {type: "application/json"}));
 
-    /////////////////////// 사진 다중첨부 수정 필요 //////////////////////////
-    // let list = [];
     for(let i=0; i<newImages.length; i++) {
       console.log("newImages:", newImages[i]);
       formData.append('images', newImages[i]);
-      // list.push(newImages[i]);
     }
-    // formData.append('images', list);
-
-    // formData.append('images', newImages);
-
-    // list.forEach(image=> formData.append("images", image));
-
-    // formData.append('images', null);
 
     await axios
         .post(preURL + `/camping/details/${Campsite.contentId}/reviews`,
@@ -209,9 +199,9 @@ const ContentDetail = () => {
           console.log("🧨리뷰 업로드 실패", err);
         })
 
-    for (let value of formData.values()) {
-      console.log(value);
-    }
+    // for (let value of formData.values()) {
+    //   console.log(value);
+    // }
 
   },[content, star, newImages]);
 
@@ -245,7 +235,7 @@ const ContentDetail = () => {
   const ShowReviews = reviews.map((review, index) => {
     return (
         <ReviewCard key={index}>
-          {review.images &&
+          {review.images[0] !== "" &&   // 사진이 있으면
               <ReviewImgs>
                 {(review.images).map((url, idx) => {
                   return <img src={url} key={idx}/>
@@ -446,7 +436,7 @@ const ContentDetail = () => {
                       type="file"
                       accept="image/*"
                       onChange={onChangeImgInput}
-                      // multiple
+                      multiple
                       style={{display: "none"}}/>
                   <PreviewWrapper>
                     {previewImg.map((url, index) => {
