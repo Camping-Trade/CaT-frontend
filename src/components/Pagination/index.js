@@ -21,8 +21,9 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
 
   // 페이지 클릭
   const onClickPage = (e) => {
-    console.log("페이지 클릭: ", e.target.innerHTML);
+    // console.log("페이지 클릭: ", e.target.innerHTML);
     setPageNo(parseInt(e.target.innerHTML));
+    window.scrollTo({top: 0});
   };
 
   // 페이지 넘기기
