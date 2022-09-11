@@ -8,7 +8,7 @@ const TourPicsAPI = async () => {
   let items = [];
 
   await axios
-      .get("http://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList",{
+      .get("https://api.visitkorea.or.kr/openapi/service/rest/PhotoGalleryService/galleryList",{
         params: {
           numOfRows: 30,
           pageNo: 1,

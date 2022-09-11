@@ -5,7 +5,7 @@ import {parseXML} from "../../XMLParser";
 export const SpotBasedSearch = async (x, y, pageNo) => {
 
   const API_KEY = process.env.REACT_APP_GOCAMPING_API_KEY;
-  const url = "http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/locationBasedList";
+  const url = "https://api.visitkorea.or.kr/openapi/service/rest/GoCamping/locationBasedList";
 
   // console.log("좌표: ", x, y);
 

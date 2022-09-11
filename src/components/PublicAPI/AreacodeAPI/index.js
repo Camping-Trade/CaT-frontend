@@ -5,7 +5,7 @@ import {parseXML} from "../../XMLParser";
 const AreacodeAPI = async (areacode) => {
 
   const API_KEY = process.env.REACT_APP_AREACODE_API_KEY;
-  const url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode";
+  const url = "https://api.visitkorea.or.kr/openapi/service/rest/KorService/areaCode";
 
   // 지역코드로 조회한 지역 결과 리스트
   let areaItems = [];
