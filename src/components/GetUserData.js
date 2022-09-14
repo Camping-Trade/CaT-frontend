@@ -15,11 +15,11 @@ const GetUserData = async (appToken) => {
         }
       })
       .then((res) => {
-        console.log("👍유저정보 받아오기 성공", res.data);
+        // console.log("👍유저정보 받아오기 성공", res.data);
         data = res.data;
       })
       .catch((err) => {
-        console.log("🧨유저정보 받아오기 실패", err);
+        // console.log("🧨유저정보 받아오기 실패", err);
       })
 
   return data;

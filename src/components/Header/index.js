@@ -24,10 +24,12 @@ const Header = () => {
   useEffect(() => {
     cookies.appToken && GetUserData(cookies.appToken)
         .then((res) => {
-          console.log("👍유저데이터 프로미스 반환", res);
+          // console.log("👍유저데이터 프로미스 반환", res);
           setUserData(res);
         })
-        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+        .catch((err) => {
+          // console.log("🧨유저데이터 프로미스 반환 에러", err)
+        })
   },[cookies.appToken]);
 
 

@@ -90,10 +90,12 @@ const ContentDetail = () => {
   useEffect(() => {
     cookies.appToken && GetUserData(cookies.appToken)
         .then((res) => {
-          console.log("👍유저데이터 프로미스 반환", res);
+          // console.log("👍유저데이터 프로미스 반환", res);
           setNickname(res.nickname);
         })
-        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+        .catch((err) => {
+          // console.log("🧨유저데이터 프로미스 반환 에러", err)
+        })
   },[cookies.appToken]);
 
 
@@ -106,11 +108,11 @@ const ContentDetail = () => {
           // }
         })
         .then((res) => {
-          console.log("👍리뷰 목록 받아오기 성공", res);
+          // console.log("👍리뷰 목록 받아오기 성공", res);
           setReviews(res.data);
         })
         .catch((err) => {
-          console.log("🧨리뷰 목록 받아오기 실패", err);
+          // console.log("🧨리뷰 목록 받아오기 실패", err);
         })
   },[]);
 
@@ -190,7 +192,7 @@ const ContentDetail = () => {
             }
         )
         .then((res) => {
-          console.log("👍리뷰 업로드 성공", res);
+          // console.log("👍리뷰 업로드 성공", res);
           alert('리뷰를 업로드했습니다!');
           setContent("");
           setStar(0);
@@ -198,7 +200,7 @@ const ContentDetail = () => {
           window.location.reload();
         })
         .catch((err) => {
-          console.log("🧨리뷰 업로드 실패", err);
+          // console.log("🧨리뷰 업로드 실패", err);
         })
 
     // for (let value of formData.values()) {
@@ -222,12 +224,12 @@ const ContentDetail = () => {
           }
         })
         .then((res) => {
-          console.log("👍리뷰 삭제 성공", res);
+          // console.log("👍리뷰 삭제 성공", res);
           alert('리뷰를 삭제하였습니다.');
           window.location.reload();
         })
         .catch((err) => {
-          console.log("🧨리뷰 삭제 실패", err);
+          // console.log("🧨리뷰 삭제 실패", err);
         })
   }
 

@@ -52,13 +52,15 @@ const MyPage = () => {
   useEffect(() => {
     cookies.appToken && GetUserData(cookies.appToken)
         .then((res) => {
-          console.log("👍유저데이터 프로미스 반환", res);
+          // console.log("👍유저데이터 프로미스 반환", res);
           setNickname(res.nickname);
           setEmail(res.email);
           setProfileImg(res.profile_image_url);
           setUserPoint(res.point);
         })
-        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+        .catch((err) => {
+          // console.log("🧨유저데이터 프로미스 반환 에러", err)
+        })
   },[cookies.appToken]);
 
 
@@ -71,11 +73,11 @@ const MyPage = () => {
           }
         })
         .then((res) => {
-          console.log('👍유저 예약 정보 받아오기 성공', res);
+          // console.log('👍유저 예약 정보 받아오기 성공', res);
           setReservList(res.data);
         })
         .catch((err) => {
-          console.log('🧨유저 예약 정보 받아오기 실패', err);
+          // console.log('🧨유저 예약 정보 받아오기 실패', err);
         })
   },[cookies.appToken]);
 
@@ -88,11 +90,11 @@ const MyPage = () => {
           }
         })
         .then((res) => {
-          console.log('👍유저 나눔 내역 받아오기 성공', res);
+          // console.log('👍유저 나눔 내역 받아오기 성공', res);
           setTradeList(res.data);
         })
         .catch((err) => {
-          console.log('🧨유저 나눔 내역 받아오기 실패', err);
+          // console.log('🧨유저 나눔 내역 받아오기 실패', err);
         })
   },[]);
 

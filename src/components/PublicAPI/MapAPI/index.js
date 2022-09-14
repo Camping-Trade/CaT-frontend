@@ -20,7 +20,7 @@ let map;
 // ================= 카카오맵에 좌표 찍기 =================
 
 export const KakaoMapMarker = (x, y, name) => {
-  console.log("👍카카오맵 api 연결 성공");
+  // console.log("👍카카오맵 api 연결 성공");
 
   const container = document.getElementById('kakao-map');
   const options = {
@@ -29,7 +29,7 @@ export const KakaoMapMarker = (x, y, name) => {
   };
   map = new kakao.maps.Map(container, options);
 
-  console.log("👍카카오맵에 좌표 마커 표시 성공, ", x, y);
+  // console.log("👍카카오맵에 좌표 마커 표시 성공, ", x, y);
 
   // 마커가 표시될 위치입니다
   const markerPosition  = new kakao.maps.LatLng(x, y);

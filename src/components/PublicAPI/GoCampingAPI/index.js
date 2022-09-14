@@ -31,10 +31,10 @@ export const SpotBasedSearch = async (x, y, pageNo) => {
         numOfRows = parseXML(res.data)[1].children[1];
         // pageNo = parseXML(res.data)[1].children[2];
         totalCount = parseXML(res.data)[1].children[3]
-        console.log("👍고캠핑 api 연결 성공\n", parseXML(res.data)[1].children);
+        // console.log("👍고캠핑 api 연결 성공\n", parseXML(res.data)[1].children);
       })
       .catch((err) => {
-        console.log("🧨고캠핑 api 연결 실패\n", err);
+        // console.log("🧨고캠핑 api 연결 실패\n", err);
       })
 
   return [data, numOfRows, totalCount];

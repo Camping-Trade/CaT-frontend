@@ -15,7 +15,7 @@ const Main = () => {
   useEffect(() => {
     TourPicsAPI()
         .then((res) => {
-          console.log("관광사진 목록", res);
+          // console.log("관광사진 목록", res);
 
           let list = [];
           res.map((item) => {

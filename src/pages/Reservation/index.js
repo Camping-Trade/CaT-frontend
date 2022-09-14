@@ -83,10 +83,12 @@ const Reservation = () => {
   useEffect(() => {
     cookies.appToken && GetUserData(cookies.appToken)
         .then((res) => {
-          console.log("👍유저데이터 프로미스 반환", res);
+          // console.log("👍유저데이터 프로미스 반환", res);
           setUserPoint(res.point);
         })
-        .catch((err) => console.log("🧨유저데이터 프로미스 반환 에러", err))
+        .catch((err) => {
+          // console.log("🧨유저데이터 프로미스 반환 에러", err)
+        })
   },[cookies.appToken]);
 
   // 카카오맵 불러오기
@@ -164,11 +166,11 @@ const Reservation = () => {
           }
         })
         .then((res) => {
-          console.log("👍예약 성공", res);
+          // console.log("👍예약 성공", res);
           alert('예약되었습니다!');
         })
         .catch((err) => {
-          console.log("🧨예약 실패", err);
+          // console.log("🧨예약 실패", err);
         })
   }
 

@@ -32,12 +32,12 @@ const KakaoLoginRedirect = () => {
             }
           })
           .then((res) => {
-            console.log("👍카카오 토큰 받기 성공", res.data);
+            // console.log("👍카카오 토큰 받기 성공", res.data);
             const access_token = res.data['access_token'];  // 카카오 토큰
             getJWTtoken(access_token);
           })
           .catch((err) => {
-            console.log("🧨카카오 토큰 받기 실패", err);
+            // console.log("🧨카카오 토큰 받기 실패", err);
           })
     })();
   },[]);
@@ -53,12 +53,12 @@ const KakaoLoginRedirect = () => {
            }
          })
          .then((res) => {
-            console.log("👍jwt토큰 받기 성공", res);
+            // console.log("👍jwt토큰 받기 성공", res);
             setCookie("appToken", res.data.appToken, {path: "/"});
             navigate("/");
           })
          .catch((err) => {
-            console.log("🧨jwt토큰 받기 실패", err);
+            // console.log("🧨jwt토큰 받기 실패", err);
           })
   }
 

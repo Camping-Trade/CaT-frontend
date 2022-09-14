@@ -112,14 +112,14 @@ const AllCampsite = () => {
           }
         })
         .then((res) => {
-          console.log("👍주소->좌표 변환 호출 성공", res.data);
+          // console.log("👍주소->좌표 변환 호출 성공", res.data);
           const x = res.data.documents[0].x;
           const y = res.data.documents[0].y;
           setCoordX(x);
           setCoordY(y);
         })
         .catch((err) => {
-          console.log("🧨주소->좌표 변환 호출 실패", err);
+          // console.log("🧨주소->좌표 변환 호출 실패", err);
         })
   };
 
@@ -127,7 +127,7 @@ const AllCampsite = () => {
   const callGoCamping = async (x, y, pg) => {
     return await SpotBasedSearch(x, y, pg)
         .then((res) => {
-          console.log("고캠핑 검색 결과: ", res);
+          // console.log("고캠핑 검색 결과: ", res);
           setCampsiteList(res[0]);
           // 총 페이지카운트 계산
           let totalCount = res[2].value;
@@ -137,7 +137,7 @@ const AllCampsite = () => {
           setTotalPageCount(totalPage);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         })
   };
 

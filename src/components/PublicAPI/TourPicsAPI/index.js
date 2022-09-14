@@ -21,11 +21,11 @@ const TourPicsAPI = async () => {
       })
       .then((res) => {
         const data = parseXML(res.data);
-        console.log("👍관광사진 api 호출 성공", data);
+        // console.log("👍관광사진 api 호출 성공", data);
         items = data[1].children[0].children;
       })
       .catch((err) => {
-        console.log("🧨관광사진 api 호출 실패", err);
+        // console.log("🧨관광사진 api 호출 실패", err);
       })
 
 
