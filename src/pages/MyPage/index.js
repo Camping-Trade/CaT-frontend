@@ -41,8 +41,8 @@ const MyPage = () => {
 
   // 나눔 내역
   const [tradeList, setTradeList] = useState([
-    {type: '나눔하기', date: '2022.09.01', camping: 'oo캠핑장', price: 5000},
-    {type: '나눔받기', date: '2022.09.05', camping: 'xx캠핑장', price: 4000}
+    {type: '나눔하기', createdDate: '2022.09.01', campingName: 'oo캠핑장', pointToGet: 5000},
+    {type: '나눔받기', createdDate: '2022.09.05', campingName: 'xx캠핑장', pointToGet: 4000}
   ]);
 
 
@@ -77,17 +77,34 @@ const MyPage = () => {
         })
   },[cookies.appToken]);
 
+  // 나눔 내역 받아오기
+  useEffect(async () => {
+    await axios
+        .get(preURL + '/member/sharing',{
+          headers: {
+            Authorization: `Bearer ${cookies.appToken}`
+          }
+        })
+        .then((res) => {
+          console.log('👍유저 나눔 내역 받아오기 성공', res);
+          setTradeList(res.data);
+        })
+        .catch((err) => {
+          console.log('🧨유저 나눔 내역 받아오기 실패', err);
+        })
+  },[]);
+
 
   // 나눔 내역
   const Trades = tradeList.map((trade, index) => {
     return (
         <OneTrade key={index}>
           <OneTradeInfo>
-            <TradeType>{trade.type}</TradeType>
-            <span>{trade.date}&nbsp;&nbsp;</span>
-            <span>{trade.camping}</span>
+            <TradeType>{trade.type === 'share' ? '나눔하기' : '나눔받기'}</TradeType>
+            <span>{trade.createdDate}&nbsp;&nbsp;</span>
+            <span>{trade.campingName}</span>
           </OneTradeInfo>
-          <span>{`+${trade.price}`}</span>
+          <span>{`+${trade.pointToGet}`}</span>
         </OneTrade>
     )
   });
