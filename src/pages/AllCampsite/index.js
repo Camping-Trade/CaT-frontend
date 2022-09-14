@@ -143,8 +143,8 @@ const AllCampsite = () => {
 
 
   // 고캠핑 검색 결과 리스트 나타내기
-  const CampsiteList = campsiteList.map((campsite) => {
-    return <OneCampsiteOnList data={campsite.children}/>
+  const CampsiteList = campsiteList.map((campsite, index) => {
+    return <OneCampsiteOnList key={index} data={campsite.children}/>
   });
 
 

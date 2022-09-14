@@ -29,7 +29,7 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
   // 페이지 넘기기
   const onClickNextPages = () => {
     // console.log("페이지 넘기기");
-    // console.log("페이지:" + pages);
+    // console.log("페이지:" + pages);ƒ
     let list = [];
     for(let i=0; i<5; i++){
       list[i] = pages[i]+5;
@@ -62,10 +62,10 @@ const Pagination = ({pages, setPages, totalPageCount, pageNo, setPageNo}) => {
   };
 
   // 페이지 번호
-  const showPages = pages.map((page) => {
+  const showPages = pages.map((page, index) => {
     // console.log("page: ", page, " pageNo: ", pageNo)
     return (
-        <PageNum onClick={onClickPage} check={page === pageNo}>
+        <PageNum key={index} onClick={onClickPage} check={page === pageNo}>
           {page}
         </PageNum>
 

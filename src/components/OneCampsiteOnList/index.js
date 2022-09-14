@@ -15,7 +15,7 @@ const OneCampsiteOnList = ({data}) => {
 
   // 캠핑장 데이터 접근하기 쉽도록 가공
   let campsite = {};
-  data.map((info) => {
+  data.forEach((info) => {
     const Key = info.name;
     const Value = info.value;
     campsite[Key] = Value;
