@@ -71,12 +71,12 @@ const ContentDetail = () => {
 
   // 후기 목록
   const [reviews, setReviews] = useState([
-    {writer: "사용자1", content: "여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요", rating: 5, createdDate: "22. 9. 6. 오전 1:48", images:
-          ["https://blog.kakaocdn.net/dn/xxyIJ/btq92x3CGjB/Yc203QOlRmjDO2rjKC4TDK/img.jpg",
-            "https://img.hankyung.com/photo/202111/AA.28096233.1.jpg"]},
-    {writer: "사용자2", content: "여기 별로에요ㅜ", rating: 1, createdDate: "22. 9. 6. 오전 1:48", images: []},
-    {writer: "사용자3", content: "좋아용", rating: 3, createdDate: "22. 9. 6. 오전 1:48", images: []},
-    {writer: "사용자4", content: "good", rating: 4, createdDate: "22. 9. 6. 오전 1:48", images: []},
+    // {writer: "사용자1", content: "여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요 여기 캠핑장 짱짱 좋아요 풍경이 이뻐요 경치가 좋아요", rating: 5, createdDate: "22. 9. 6. 오전 1:48", images:
+    //       ["https://blog.kakaocdn.net/dn/xxyIJ/btq92x3CGjB/Yc203QOlRmjDO2rjKC4TDK/img.jpg",
+    //         "https://img.hankyung.com/photo/202111/AA.28096233.1.jpg"]},
+    // {writer: "사용자2", content: "여기 별로에요ㅜ", rating: 1, createdDate: "22. 9. 6. 오전 1:48", images: []},
+    // {writer: "사용자3", content: "좋아용", rating: 3, createdDate: "22. 9. 6. 오전 1:48", images: []},
+    // {writer: "사용자4", content: "good", rating: 4, createdDate: "22. 9. 6. 오전 1:48", images: []},
   ])
 
 
@@ -101,9 +101,9 @@ const ContentDetail = () => {
   useEffect(() => {
     axios
         .get(preURL + `/camping/details/${Campsite.contentId}/reviews`, {
-          headers: {
-            'Authorization': 'Bearer ' + cookies.appToken
-          }
+          // headers: {
+          //   'Authorization': 'Bearer ' + cookies.appToken
+          // }
         })
         .then((res) => {
           console.log("👍리뷰 목록 받아오기 성공", res);
