@@ -88,3 +88,11 @@ export const OneReserv = styled.div`
     display: block;
   }
 `
+
+export const ReservCampingName = styled.span`
+  font-weight: 600;
+`
+
+export const ReservDetail = styled.span`
+  font-size: small;
+`

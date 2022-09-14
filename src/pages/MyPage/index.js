@@ -17,7 +17,7 @@ import {
   PointTitle,
   UserPoint,
   RecordWrapper,
-  Record, PointWrapper, OneReserv, OneTrade, OneTradeInfo, TradeType
+  Record, PointWrapper, OneReserv, OneTrade, OneTradeInfo, TradeType, ReservCampingName, ReservDetail
 } from "./style";
 
 
@@ -37,12 +37,14 @@ const MyPage = () => {
   const [userPoint, setUserPoint] = useState(Number);
 
   // 예약 내역
-  const [reservList, setReservList] = useState([]);
+  const [reservList, setReservList] = useState([
+    {campingName: 'oo캠핑장', reservationDate: '2022.09.01 12:30', campingDateStart: '2022.09.10', campingDateEnd: '2022.09.20', numberOfPeople: 2, usingPoint: 300}
+  ]);
 
   // 나눔 내역
   const [tradeList, setTradeList] = useState([
-    {type: '나눔하기', createdDate: '2022.09.01', campingName: 'oo캠핑장', pointToGet: 5000},
-    {type: '나눔받기', createdDate: '2022.09.05', campingName: 'xx캠핑장', pointToGet: 4000}
+    // {type: '나눔하기', createdDate: '2022.09.01 12:30', campingName: 'oo캠핑장', pointToGet: 5000},
+    // {type: '나눔받기', createdDate: '2022.09.05', campingName: 'xx캠핑장', pointToGet: 4000}
   ]);
 
 
@@ -101,7 +103,7 @@ const MyPage = () => {
         <OneTrade key={index}>
           <OneTradeInfo>
             <TradeType>{trade.type === 'share' ? '나눔하기' : '나눔받기'}</TradeType>
-            <span>{trade.createdDate}&nbsp;&nbsp;</span>
+            <span>{(trade.createdDate).split(' ')[0]}&nbsp;&nbsp;</span>
             <span>{trade.campingName}</span>
           </OneTradeInfo>
           <span>{`+${trade.pointToGet}`}</span>
@@ -113,11 +115,11 @@ const MyPage = () => {
   const Reservation = reservList.map((reserv, index) => {
     return (
         <OneReserv key={index}>
-          <span>{reserv.campingName}</span>
-          <span>예약 일자: {reserv.reservationDate}</span>
-          <span>예약 기간: {reserv.campingDateStart} ~ {reserv.campingDateEnd}</span>
-          <span>인원수: {reserv.numberOfPeople}</span>
-          <span>사용 포인트: {reserv.usingPoint}</span>
+          <ReservCampingName style={{fontWeight: 'bold'}}>{reserv.campingName}</ReservCampingName>
+          <ReservDetail style={{fontSize: 'small'}}>예약 일자: {(reserv.reservationDate).split(' ')[0]}</ReservDetail>
+          <ReservDetail style={{fontSize: 'small'}}>예약 기간: {reserv.campingDateStart} ~ {reserv.campingDateEnd}</ReservDetail>
+          <ReservDetail style={{fontSize: 'small'}}>인원수: {reserv.numberOfPeople}</ReservDetail>
+          <ReservDetail style={{fontSize: 'small'}}>사용 포인트: {reserv.usingPoint}</ReservDetail>
         </OneReserv>
     )
   });
